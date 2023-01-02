@@ -4,12 +4,17 @@ services:
   client_config: {}
   server_config: {}
 startup: {type: form, module: testing}
-package_name: ClientPDF
+package_name: FastPDF
 allow_embedding: false
-name: ClientPDF
-runtime_options: {version: 2, client_version: '3', server_version: python3-full, server_spec: null}
-metadata: {title: Client Side PDF, description: 'An Anvil wrapper to create performant
-    PDF Files on the Client Side '}
+name: FastPDF
+runtime_options:
+  version: 2
+  client_version: '3'
+  server_version: python3-full
+  server_spec: null
+  server_spec_disabled: {requirements: '', base: python310-minimal}
+metadata: {title: Client & Server Side PDF Generation, description: 'An Anvil wrapper
+    to create performant PDF Files on the Client Side '}
 startup_form: null
 native_deps: {head_html: '<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>'}
 renamed: true
