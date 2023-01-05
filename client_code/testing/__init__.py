@@ -8,6 +8,8 @@ class testing(testingTemplate):
     self.init_components(**properties)
 
     tests.run()
+
+
     
 
 

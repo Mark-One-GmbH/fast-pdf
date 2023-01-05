@@ -7,15 +7,7 @@ components:
   properties: {col_widths: '{}'}
   name: content_panel
   layout_properties: {slot: default}
-  components:
-  - type: Button
-    properties: {role: filled-button, align: center, tooltip: '', border: '', enabled: true,
-      foreground: '', visible: true, text: Test PDF, font_size: null, font: '', spacing_above: small,
-      icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-      underline: false, icon: 'fa:file-pdf-o'}
-    name: test_btn
-    layout_properties: {grid_position: 'BOQIQC,HNXVYG'}
-    event_bindings: {click: test_btn_click}
+  components: []
 - type: FlowPanel
   properties: {}
   name: navbar_links

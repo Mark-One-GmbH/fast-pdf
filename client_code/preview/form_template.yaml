@@ -1,0 +1,14 @@
+container:
+  type: HtmlTemplate
+  properties: {tooltip: '', background: '', foreground: '', border: '', visible: true,
+    role: null, html: '<iframe id=''pdf_view'' src='''' frameborder="0" allowfullscreen="true"
+      mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
+
+
+      <script>
+
+      function display_pdf(url){$(''#pdf_view'').attr(''src'', url)}
+
+      </script>'}
+components: []
+is_package: true

@@ -16,5 +16,9 @@ runtime_options:
 metadata: {title: Client & Server Side PDF Generation, description: 'An Anvil wrapper
     to create performant PDF Files on the Client Side '}
 startup_form: null
-native_deps: {head_html: '<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>'}
+native_deps: {head_html: '<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+
+    '}
 renamed: true

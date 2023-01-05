@@ -13,14 +13,14 @@ import anvil.server
 import anvil.js
 import anvil.media
 
-from . import helper
+from . import utils
 
 
 class Document:
   def __init__(self):
     self.server_side = anvil.is_server_side()
     self._set_base_library(anvil.is_server_side())
-
+    
   def _set_base_library(self,is_server_side):
     '''
     Sets the base implementaion of the library as a doc object
@@ -54,12 +54,27 @@ class Document:
       return anvil.BlobMedia("application/pdf", byte_string, name=f"{file_name}.pdf")
     else:
       return anvil.js.to_media(self._proxy_doc.output('blob'),content_type="application/pdf", name=f"{file_name}.pdf")
-    
+
+  def _to_base_64(self):
+    return doc.output('bloburi')
+
+  ###########################
+  #Display modes of the pdf
+  ############################
+  
   def print(self):
     '''prints the pdf to the browser window'''
-    pass
+    try:
+      from anvil.js.window import printJS
+      printJS({'printable': base_string, 'type': 'pdf', 'base64': True})
+    except Exception as e:
+      print('Warning could not print document',e)
+
 
   def download(self):
     '''downloads the pdf file'''
     import anvil.media
     anvil.media.download(self.to_blob())
+
+  def preview(self):
+    pass
