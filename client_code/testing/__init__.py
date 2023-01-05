@@ -9,6 +9,10 @@ class testing(testingTemplate):
 
     tests.run()
 
+  def button_1_click(self, **event_args):
+    tests.run()
+
+
 
     
 
