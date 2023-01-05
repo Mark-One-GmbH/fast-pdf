@@ -34,6 +34,7 @@ class Document:
     else:
       from fpdf import FPDF
       self.doc = FPDF()
+      self.doc.add_page()
       self._proxy_doc = self.doc
 
 
@@ -46,39 +47,36 @@ class Document:
   def cell(self,width,height,text):
     self.doc.cell(width,height, text, border = 0, ln = 1)
 
+  ###############
+  #Output functions
+  #########
   
   def to_blob(self,file_name = 'file'):
-    '''returns an anvil blob media'''
+    '''returns an anvil blob media with the type application/pdf'''
     if self.server_side:
       byte_string = bytes(self.doc.output())
       return anvil.BlobMedia("application/pdf", byte_string, name=f"{file_name}.pdf")
     else:
       return anvil.js.to_media(self._proxy_doc.output('blob'),content_type="application/pdf", name=f"{file_name}.pdf")
 
-  def _to_base_64(self):
-    import base64
-    return base64.b64encode(self.to_blob().get_bytes()).decode('utf-8')
-
-  def _to_js_blob(self):
-    return anvil.js.to_media(self.to_blob(),'application/pdf')
 
   ###########################
-  #Display modes of the pdf
+  #Display modes for the pdf
   ############################
   
   def print(self):
     '''prints the pdf to the browser window'''
-    try:
-      from anvil.js.window import printJS
-      printJS({'printable':self._to_base_64(), 'type': 'pdf', 'base64': True})
-    except Exception as e:
-      print('Warning could not print document',e)
-
+    utils.print_pdf(self.to_blob())
 
   def download(self):
     '''downloads the pdf file'''
-    import anvil.media
-    anvil.media.download(self.to_blob())
+    utils.download_pdf(self.to_blob())
 
   def preview(self):
-    pass
+    '''Opens an alert to preview'''
+    pdf_form = utils.preview_pdf(self._proxy_doc.output('blob'))
+    anvil.alert(pdf_form,large=True)
+
+
+  def get_form(self):
+    return utils.preview_pdf(self.to_blob())

@@ -3,7 +3,7 @@ services:
 - source: /runtime/services/tables.yml
   client_config: {}
   server_config: {}
-startup: {type: form, module: testing}
+startup: {type: form, module: tests.compare}
 package_name: FastPDF
 allow_embedding: false
 name: FastPDF

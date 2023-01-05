@@ -1,9 +1,9 @@
 import anvil.media
-from .. import fast_pdf
+from ..fast_pdf import Document
 
 
 def _basic_pdf():
-  doc = fast_pdf.Document()
+  doc = Document()
   doc.add_page()
   doc.set_font('Times',30)
   for i in range(100):
@@ -16,6 +16,8 @@ def run_test():
   doc = _basic_pdf()
   doc.download()
   doc.print()
+  doc.preview()
+  
 
-  server_doc = anvil.server.call('get_basic_pdf')
-  print(server_doc)
+  server_blob = anvil.server.call('get_basic_pdf')
+  return doc.to_blob(),server_blob

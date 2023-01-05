@@ -1,14 +1,14 @@
 container:
   type: HtmlTemplate
   properties: {tooltip: '', background: '', foreground: '', border: '', visible: true,
-    role: null, html: '<iframe id=''pdf_view'' src='''' frameborder="0" allowfullscreen="true"
-      mozallowfullscreen="true" webkitallowfullscreen="true"></iframe>
-
-
-      <script>
-
-      function display_pdf(url){$(''#pdf_view'').attr(''src'', url)}
-
-      </script>'}
+    role: null, html: "<iframe id='pdf_view' src='' frameborder=\"0\" allowfullscreen=\"\
+      true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"true\"></iframe>\n\
+      \n<script>\nfunction display_pdf(blob){\n  var url = URL.createObjectURL(blob)\n\
+      \  $('#pdf_view').attr('src', url)\n}\n</script>"}
+  event_bindings: {show: form_show}
 components: []
 is_package: true
+custom_component: true
+properties:
+- {name: pdf_media, type: object, default_binding_prop: true}
+- {name: url, type: string, default_value: ''}
