@@ -56,7 +56,8 @@ class Document:
       return anvil.js.to_media(self._proxy_doc.output('blob'),content_type="application/pdf", name=f"{file_name}.pdf")
 
   def _to_base_64(self):
-    return str(self._proxy_doc.output('bloburi'))
+    import base64
+    return base64.b64encode(self.to_blob().get_bytes()).decode('utf-8')
 
   def _to_js_blob(self):
     return anvil.js.to_media(self.to_blob(),'application/pdf')
@@ -69,9 +70,7 @@ class Document:
     '''prints the pdf to the browser window'''
     try:
       from anvil.js.window import printJS
-      base_str = self._to_base_64()
-      print('base string',base_str)
-      printJS({'printable':base_str, 'type': 'pdf', 'base64': True})
+      printJS({'printable':self._to_base_64(), 'type': 'pdf', 'base64': True})
     except Exception as e:
       print('Warning could not print document',e)
 
