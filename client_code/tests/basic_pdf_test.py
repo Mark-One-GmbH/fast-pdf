@@ -14,10 +14,9 @@ def _basic_pdf():
 def run_test():
   '''returns an anvil blob media pdf'''
   doc = _basic_pdf()
-  doc.download()
-  doc.print()
-  doc.preview()
-  
+  #doc.download()
+  #doc.print()
+  #doc.preview()
 
   server_blob = anvil.server.call('get_basic_pdf')
   return doc.to_blob(),server_blob

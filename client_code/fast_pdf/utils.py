@@ -5,7 +5,7 @@ Utility functions for pdf interactions
 def media_obj_to_base64(media_obj):
   '''returns a base 64 representation of the pdf media obj'''
   import base64
-  return base64.b64encode(self.to_blob().get_bytes()).decode('utf-8')
+  return base64.b64encode(media_obj.get_bytes()).decode('utf-8')
     
 def print_pdf(blob_media):
   '''prints an anvil blob media of type pdf'''
@@ -21,5 +21,7 @@ def download_pdf(blob_media):
 
 def preview_pdf(blob_media):
   from ..components.preview import preview
-  return preview(blob_media)
+  comp =  preview()
+  comp.pdf_media = blob_media
+  return comp
   
