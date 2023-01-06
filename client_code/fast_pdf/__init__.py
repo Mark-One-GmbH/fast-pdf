@@ -27,6 +27,8 @@ class Document:
     This class primary purpose is to provide a common interface & code completion
     between fpdf2 and the python implementation of jspdf
     '''
+
+    #Set proxy classes depending if code is executed on server or client runtime
     if not self.server_side:
       from .jspdf import jsPdf
       self.doc = jsPdf()
@@ -37,19 +39,22 @@ class Document:
       self.doc.add_page()
       self._proxy_doc = self.doc
 
+    #initializations
+    self.doc.set_font('Courier',size=12)
+    
 
   def add_page(self):
     self.doc.add_page()
 
-  def set_font(self,font_name,size):
+  def set_font(self,font_name,size,style=''):
     self.doc.set_font(font_name,size=size)
       
-  def cell(self,width,height,text):
-    self.doc.cell(width,height, text, border = 0, ln = 1)
+  def cell(self,width,height,text,border=0,ln=0):
+    self.doc.cell(width,height,text,border=border,ln=ln)
 
-  ###############
+  ###########################
   #Output functions
-  #########
+  ###########################
   
   def to_blob(self,file_name = 'file'):
     '''returns an anvil blob media with the type application/pdf'''
@@ -76,7 +81,6 @@ class Document:
     '''Opens an alert to preview'''
     pdf_form = utils.preview_pdf(self._proxy_doc.output('blob'))
     anvil.alert(pdf_form,large=True)
-
 
   def get_form(self):
     return utils.preview_pdf(self.to_blob())

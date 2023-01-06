@@ -4,7 +4,7 @@ import anvil.server
 def get_basic_pdf():
   from ..tests import basic_pdf_test
 
-  doc = basic_pdf_test._basic_pdf()
+  doc = basic_pdf_test.create_basic_doc()
   return doc.to_blob()
 
 

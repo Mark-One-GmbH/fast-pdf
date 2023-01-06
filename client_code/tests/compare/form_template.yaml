@@ -4,7 +4,7 @@ container:
 components:
 - type: Label
   properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
-    text: PDF Tester, font_size: null, font: '', spacing_above: small, icon_align: left,
+    text: Select PDF, font_size: null, font: '', spacing_above: small, icon_align: left,
     spacing_below: small, italic: false, background: '', bold: false, underline: false,
     icon: ''}
   name: label_3
@@ -13,13 +13,7 @@ components:
   properties: {}
   name: pdf_dd
   layout_properties: {grid_position: 'RQWIMW,BJVKWM LBNIGQ,ZQESEP'}
-- type: Button
-  properties: {role: filled-button, align: center, tooltip: '', border: '', enabled: true,
-    foreground: '', visible: true, text: Compare, font_size: null, font: '', spacing_above: small,
-    icon_align: left, spacing_below: small, italic: false, background: '', bold: false,
-    underline: false, icon: ''}
-  name: compare_btn
-  layout_properties: {grid_position: 'RQWIMW,BJVKWM PAGPEW,KLPBFT'}
+  event_bindings: {change: pdf_dd_change}
 - type: ColumnPanel
   properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
     wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"VVJBGW":30,"CZYGOL":3,"WKNLWC":27}',
@@ -49,6 +43,7 @@ components:
         col_widths: {}
         grid_position: IMDYTD,GMFJSL
         full_width_row: true
+      event_bindings: {click: client_download_btn_click}
     - type: Button
       properties: {role: outlined-button, align: center, tooltip: '', border: '',
         enabled: true, foreground: '', visible: true, text: '', font_size: null, font: '',
@@ -59,6 +54,7 @@ components:
         col_widths: {}
         grid_position: IMDYTD,PDHCOB
         full_width_row: true
+      event_bindings: {click: client_print_btn_click}
     - type: form:components.preview
       properties: {url: ''}
       name: client_preview
@@ -69,7 +65,7 @@ components:
     layout_properties: {grid_position: 'ISGGYO,CZYGOL', full_width_row: true}
   - type: ColumnPanel
     properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
-      wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{}',
+      wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"BVHRHL":29,"RMKFYB":16,"TBFRMB":15}',
       spacing_below: small, background: ''}
     name: column_panel_2
     layout_properties: {grid_position: 'ISGGYO,WKNLWC', full_width_row: true}
@@ -81,6 +77,22 @@ components:
         underline: false, icon: ''}
       name: label_2
       layout_properties: {grid_position: 'NWZKPZ,BVHRHL', full_width_row: false}
+    - type: Button
+      properties: {role: outlined-button, align: center, tooltip: '', border: '',
+        enabled: true, foreground: '', visible: true, text: '', font_size: null, font: '',
+        spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+        background: '', bold: false, underline: false, icon: 'fa:download'}
+      name: server_download_btn
+      layout_properties: {grid_position: 'NWZKPZ,RMKFYB', full_width_row: false}
+      event_bindings: {click: server_download_btn_click}
+    - type: Button
+      properties: {role: outlined-button, align: center, tooltip: '', border: '',
+        enabled: true, foreground: '', visible: true, text: '', font_size: null, font: '',
+        spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+        background: '', bold: false, underline: false, icon: 'fa:print'}
+      name: server_print_btn
+      layout_properties: {grid_position: 'NWZKPZ,TBFRMB', full_width_row: false}
+      event_bindings: {click: server_print_btn_click}
     - type: form:components.preview
       properties: {}
       name: server_preview
