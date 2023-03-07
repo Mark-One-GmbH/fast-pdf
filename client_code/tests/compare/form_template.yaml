@@ -1,6 +1,6 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{"BJVKWM":9,"IOVSAH":24,"STMDKL":27}'}
+  properties: {col_widths: '{"BJVKWM":9,"IOVSAH":26,"STMDKL":25}'}
 components:
 - type: Label
   properties: {role: null, align: left, tooltip: '', border: '', foreground: '', visible: true,
