@@ -1,9 +1,9 @@
 """
 Main Document Class that acts as a wrapper for client and server side PDF Creation
-Browser Library: JSPDF
-Server Library: FPDF2 (Reference implementation)
+Browser Library: JSPDF  ->  https://raw.githack.com/MrRio/jsPDF/master/docs/index.html
+Server Library: FPDF2 (Reference implementation) ->  https://pyfpdf.github.io/fpdf2/index.html
 
-Fpdf2 https://pyfpdf.github.io/fpdf2/index.html is strictly used as a reference implementation
+Fpdf2  is strictly used as a reference implementation
 The goal is to create pdfs client and server side without round trips and a unified sdk.
 
 Subtle differences between server and client side implementation/results are possible!
@@ -17,31 +17,55 @@ from . import utils
 
 
 class Document:
-  def __init__(self):
+  def __init__(self,orientation='portrait',format='A4'):
+    #Init Variables
+    self._orientation = orientation
+    self._format = format
     self.server_side = anvil.is_server_side()
-    self._set_base_library(anvil.is_server_side())
     
-  def _set_base_library(self,is_server_side):
+    #Set Base Renderer
+    self._set_renderer(anvil.is_server_side())
+
+    #State Variables
+
+    
+    
+  def _set_renderer(self,is_server_side):
     '''
-    Sets the base implementaion of the library as a doc object
+    Sets the base implementaion of the library as a document object
     This class primary purpose is to provide a common interface & code completion
     between fpdf2 and the python implementation of jspdf
     '''
 
     #Set proxy classes depending if code is executed on server or client runtime
     if not self.server_side:
-      from .jspdf import jsPdf
-      self.doc = jsPdf()
-      self._proxy_doc = self.doc.doc
+      self._set_jspdf_renderer()
     else:
-      from fpdf import FPDF
-      self.doc = FPDF()
-      self.doc.add_page()
-      self._proxy_doc = self.doc
+      self._set_fpdf_renderer()
 
     #initializations
     self.doc.set_font('Courier',size=12)
+
+  def _set_jspdf_renderer(self):
+    from .jspdf import jsPdf
+    self.doc = jsPdf()
+    self._proxy_doc = self.doc.doc
+
+  def _set_fpdf_renderer(self):
+    from fpdf import FPDF
+    self.doc = FPDF(orientation = self._orientation,format=self._format)
+    self.doc.add_page()
+    self._proxy_doc = self.doc
     
+  ###########################
+  #Public Methods
+  ###########################
+
+  def set_footer_function(self,footer_func):
+    self.doc.footer = footer_func
+
+  def set_header_function(self,header_func):
+    self.doc.header = header_func
 
   def add_page(self):
     self.doc.add_page()
@@ -83,4 +107,5 @@ class Document:
     anvil.alert(pdf_form,large=True)
 
   def get_form(self):
+    '''Returns a nestable component wich allows the pdf to be embedded into forms'''
     return utils.preview_pdf(self.to_blob())
