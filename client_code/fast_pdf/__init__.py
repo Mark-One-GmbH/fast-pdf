@@ -17,10 +17,17 @@ from . import utils
 
 
 class Document:
-  def __init__(self,orientation='portrait',format='A4'):
-    #Init Variables
-    self._orientation = orientation
-    self._format = format
+  def __init__(self,page_height=297,page_width=210,margin_top=0,margin_bottom=0,margin_left=0,margin_right=0,header_height=0,footer_height=0):
+    #Initial Variables that define the basic page layout
+    self.page_height = page_height
+    self.page_width = page_width
+    self.margin_top = margin_top
+    self.margin_bottom = margin_bottom
+    self.margin_left = margin_left
+    self.margin_right = margin_right
+    self.header_height = header_height
+    self.footer_height = footer_height
+    
     self.server_side = anvil.is_server_side()
     
     #Set Base Renderer
@@ -48,12 +55,12 @@ class Document:
 
   def _set_jspdf_renderer(self):
     from .jspdf import jsPdf
-    self.doc = jsPdf()
+    self.doc = jsPdf(self)
     self._proxy_doc = self.doc.doc
 
   def _set_fpdf_renderer(self):
     from .fpdf import CustomFPDF
-    self.doc = CustomFPDF(orientation = self._orientation,format=self._format)
+    self.doc = CustomFPDF(self)
     self._proxy_doc = self.doc
     
   ###########################
@@ -74,6 +81,12 @@ class Document:
       
   def cell(self,width,height,text,border=0,ln=0):
     self.doc.cell(width,height,text,border=border,ln=ln)
+
+  def build_header(self):
+    pass
+
+  def build_footer(self):
+    pass
 
   ###########################
   #Output functions

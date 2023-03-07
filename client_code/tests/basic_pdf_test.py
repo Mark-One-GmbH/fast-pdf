@@ -7,21 +7,28 @@ def basic_document():
   '''
   Returns a Document Instance that contains basic layouts
   '''
+
+  #0. Define some common variables
+  line_h = 6 #standard line height
   
   #1. Define Header and Footer Functions  -> called for each new page
   def footer_func(pdf):
-    pdf.cell(10,10,'My Footer !')
+    pdf.cell(80,line_h,'Bestellung Nr 255')
     
   def header_func(pdf):
-    pdf.cell(10,10,'My Header!')
+    pdf.cell(80,line_h,'Bäckerei Breuß',ln=1)
+    pdf.cell(80,line_h,'Alemannenstraße 33',ln=1)
+    pdf.cell(80,line_h,'office@markone.at',ln=1)
+    pdf.cell(80,line_h,'0676/76 28 996',ln=1)
 
   #2. Create document Instance and set initial settings
   doc = Document()
   doc.set_footer_function(footer_func)
   doc.set_header_function(header_func)
-  doc.set_font('Times',30)
+  doc.set_font('Times',9)
   
   #3. Main Document Body
+  
   doc.add_page()
   for i in range(100):
     doc.cell(10,10,'Hello World',ln=1)
