@@ -17,7 +17,7 @@ from . import utils
 
 
 class Document:
-  def __init__(self,page_height=297,page_width=210,margin_top=0,margin_bottom=0,margin_left=0,margin_right=0,header_height=0,footer_height=0):
+  def __init__(self,page_height=297,page_width=210,margin_top=10,margin_bottom=10,margin_left=10,margin_right=10,header_height=0,footer_height=0):
     #Initial Variables that define the basic page layout
     self.page_height = page_height
     self.page_width = page_width
@@ -34,6 +34,7 @@ class Document:
     self._set_renderer(anvil.is_server_side())
 
     #State Variables
+    
 
     
     
@@ -58,7 +59,11 @@ class Document:
 
   def _set_fpdf_renderer(self):
     from .fpdf import CustomFPDF
-    self.doc = CustomFPDF()
+    self.doc = CustomFPDF(unit='mm',format=[self.page_width,self.page_height])
+    self.doc.set_margin(self.margin_bottom)
+    self.doc.set_left_margin(self.margin_left)
+    self.doc.set_right_margin(self.margin_right)
+    self.doc.set_top_margin(self.margin_top)
     self._proxy_doc = self.doc
     
   ###########################

@@ -16,7 +16,7 @@ class jsPdf:
 
     #JS PDF Proxy Object
     from anvil.js.window import jspdf
-    self.doc = jspdf.jsPDF('p', 'mm','a4')
+    self.doc = jspdf.jsPDF('p', 'mm',[self.page_width,self.page_height])
     
     #Cursor position
     self.current_x = 0
@@ -37,7 +37,7 @@ class jsPdf:
     self.doc.setFontSize(size)
 
   def _check_new_page(self,offset):
-    if self.current_y + offset + self.margin_bottom >= self.page_height: 
+    if self.current_y + offset + self.margin_bottom + self.footer_height >= self.page_height: 
       self.add_page()
       self._reset_x()
       self._reset_y()
@@ -46,7 +46,7 @@ class jsPdf:
     self.current_x = self.margin_left
 
   def _reset_y(self):
-    self.current_y = self.margin_top
+    self.current_y = self.margin_top + self.header_height
     
   def cell(self,width,height,text,border = 0, ln = 1):
     #check if new page must be added
