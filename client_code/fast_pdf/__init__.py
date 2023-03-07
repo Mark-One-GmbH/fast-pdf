@@ -50,8 +50,6 @@ class Document:
     else:
       self._set_fpdf_renderer()
 
-    #initializations
-    self.doc.set_font('Courier',size=12)
 
   def _set_jspdf_renderer(self):
     from .jspdf import jsPdf
@@ -60,7 +58,7 @@ class Document:
 
   def _set_fpdf_renderer(self):
     from .fpdf import CustomFPDF
-    self.doc = CustomFPDF(self)
+    self.doc = CustomFPDF()
     self._proxy_doc = self.doc
     
   ###########################
@@ -81,6 +79,9 @@ class Document:
       
   def cell(self,width,height,text,border=0,ln=0):
     self.doc.cell(width,height,text,border=border,ln=ln)
+
+  def spacer(self,height):
+    self.cell(1,height,'',ln=1)
 
   def build_header(self):
     pass

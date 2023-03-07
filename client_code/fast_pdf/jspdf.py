@@ -46,7 +46,7 @@ class jsPdf:
     self.current_x = self.margin_left
 
   def _reset_y(self):
-    self.current_y = self.top_margin
+    self.current_y = self.margin_top
     
   def cell(self,width,height,text,border = 0, ln = 1):
     #check if new page must be added

@@ -9,7 +9,7 @@ def basic_document():
   '''
 
   #0. Define some common variables
-  line_h = 6 #standard line height
+  line_h = 5 #standard line height
   
   #1. Define Header and Footer Functions  -> called for each new page
   def footer_func(pdf):
@@ -25,14 +25,40 @@ def basic_document():
   doc = Document()
   doc.set_footer_function(footer_func)
   doc.set_header_function(header_func)
-  doc.set_font('Times',9)
+  doc.set_font('Arial',9)
   
   #3. Main Document Body
-  
-  doc.add_page()
-  for i in range(100):
-    doc.cell(10,10,'Hello World',ln=1)
-    
+  for i in range(5):
+    doc.add_page()
+    #Adress Block
+    doc.spacer(20)
+    doc.cell(150,line_h,'Herberts Dorfmetz GmbH')
+    doc.cell(100,line_h,'LFS 12345',ln=1)
+    doc.cell(150,line_h,'am Dorfplatz 7')
+    doc.cell(100,line_h,'Kunde Nr.: 1234',ln=1)
+    doc.cell(150,line_h,'6830 Rankweil')
+    doc.cell(100,line_h,'Tel: 06767628966',ln=1)
+    doc.spacer(10)
+
+    #Order Details
+    doc.cell(150,line_h,'Mi, 08.03.2023',ln=1)
+    doc.cell(100,line_h,'Abholung',ln=1)
+    doc.cell(100,line_h,'Bitte alles in Kunststoffsäcke einpacken!',ln=1)
+    doc.spacer(15)
+
+    #Article Table
+    doc.cell(20,line_h,'PLU')
+    doc.cell(100,line_h,'Artikel')
+    doc.cell(25,line_h,'Stk.')
+    doc.cell(25,line_h,'Ret')
+    doc.cell(100,line_h,'Kommentar',ln=1)
+
+    for i in range(50):
+      doc.cell(20,line_h,'21')
+      doc.cell(100,line_h,'Handsemmel')
+      doc.cell(25,line_h,'620')
+      doc.cell(25,line_h,'0')
+      doc.cell(100,line_h,'',ln=1)    
     
   return doc
 

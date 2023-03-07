@@ -1,7 +1,7 @@
 container:
   type: HtmlTemplate
   properties: {tooltip: '', background: '', foreground: '', border: '', visible: true,
-    role: null, html: "<iframe id='fast_pdf_view' src='' height=1000 width=600 frameborder=\"\
+    role: null, html: "<iframe id='fast_pdf_view' src='' height=1000 width=800 frameborder=\"\
       0\" allowfullscreen=\"true\" mozallowfullscreen=\"true\" webkitallowfullscreen=\"\
       true\"></iframe>\n\n<script>\nfunction getRandomInt(max) {\n  return Math.floor(Math.random()\
       \ * max);\n}\n\t\nvar unique_id = \"fast_pdf_view\" + getRandomInt(9999999).toString();\n\
