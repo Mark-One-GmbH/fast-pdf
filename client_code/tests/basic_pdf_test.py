@@ -6,7 +6,12 @@ def basic_document():
   '''
   Returns a Document that contains basic layouts
   '''
-  class myDocument()
+  class myDocument(Document):
+    def footer(self):
+      pass
+
+    def header(self):
+      pass
 
   #Define Footer
   def footer_func(**kw_args):
