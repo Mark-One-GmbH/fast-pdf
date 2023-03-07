@@ -21,26 +21,48 @@ class jsPdf:
     #Cursor position
     self.current_x = 0
     self.current_y = 0
+    self._reset_x()
+    self._reset_y()
 
-  def _header_callback(self):
-    print('js header callback')
-    self.doc.text('HEADER',10,10)
+    #Helper Flags
+    self.auto_page_break = True
+    self.first_page = True
+
+
+  def header(self):
+    self._reset_x()
+    self.current_y = self.margin_top
+    self.header_callback(self)
+
+
+  def footer(self):
+    self._reset_x()
+    self.current_y = self.page_height - self.margin_bottom - self.footer_height
+    self.auto_page_break = False
+    self.footer_callback(self)
+    self.auto_page_break = True
 
     
   def add_page(self):
-    self._header_callback()
+    #ignore first page since fpdf start with 0 pages but js pdf with 1
+    if self.first_page:
+      self.first_page = False
+      return
+      
+    self.header()
+    self.footer()
     self.doc.addPage()
-
+    self._reset_x()
+    self._reset_y()
+    
 
   def set_font(self,font_name,size=10):
     self.doc.setFont(font_name,'','normal')
     self.doc.setFontSize(size)
 
   def _check_new_page(self,offset):
-    if self.current_y + offset + self.margin_bottom + self.footer_height >= self.page_height: 
+    if self.auto_page_break and self.current_y + offset + self.margin_bottom + self.footer_height >= self.page_height: 
       self.add_page()
-      self._reset_x()
-      self._reset_y()
 
   def _reset_x(self):
     self.current_x = self.margin_left

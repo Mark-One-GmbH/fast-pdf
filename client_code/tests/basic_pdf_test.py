@@ -22,7 +22,7 @@ def basic_document():
     pdf.cell(80,line_h,'0676/76 28 996',ln=1)
 
   #2. Create document Instance and set initial settings
-  doc = Document()
+  doc = Document(header_height=20,footer_height=5)
   doc.set_footer_function(footer_func)
   doc.set_header_function(header_func)
   doc.set_font('Arial',9)
