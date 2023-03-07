@@ -48,6 +48,17 @@ components:
       properties: {role: outlined-button, align: center, tooltip: '', border: '',
         enabled: true, foreground: '', visible: true, text: '', font_size: null, font: '',
         spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+        background: '', bold: false, underline: false, icon: 'fa:eye'}
+      name: client_preview_btn
+      layout_properties:
+        col_widths: {}
+        grid_position: IMDYTD,XWIHKC
+        full_width_row: true
+      event_bindings: {click: client_preview_btn_click}
+    - type: Button
+      properties: {role: outlined-button, align: center, tooltip: '', border: '',
+        enabled: true, foreground: '', visible: true, text: '', font_size: null, font: '',
+        spacing_above: small, icon_align: left, spacing_below: small, italic: false,
         background: '', bold: false, underline: false, icon: 'fa:print'}
       name: client_print_btn
       layout_properties:
@@ -85,6 +96,17 @@ components:
       name: server_download_btn
       layout_properties: {grid_position: 'NWZKPZ,RMKFYB', full_width_row: false}
       event_bindings: {click: server_download_btn_click}
+    - type: Button
+      properties: {role: outlined-button, align: center, tooltip: '', border: '',
+        enabled: true, foreground: '', visible: true, text: '', font_size: null, font: '',
+        spacing_above: small, icon_align: left, spacing_below: small, italic: false,
+        background: '', bold: false, underline: false, icon: 'fa:eye'}
+      name: server_preview_btn
+      layout_properties:
+        col_widths: {}
+        grid_position: NWZKPZ,STLECH
+        full_width_row: false
+      event_bindings: {click: server_preview_btn_click}
     - type: Button
       properties: {role: outlined-button, align: center, tooltip: '', border: '',
         enabled: true, foreground: '', visible: true, text: '', font_size: null, font: '',

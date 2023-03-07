@@ -52,9 +52,8 @@ class Document:
     self._proxy_doc = self.doc.doc
 
   def _set_fpdf_renderer(self):
-    from fpdf import FPDF
-    self.doc = FPDF(orientation = self._orientation,format=self._format)
-    self.doc.add_page()
+    from .fpdf import CustomFPDF
+    self.doc = CustomFPDF(orientation = self._orientation,format=self._format)
     self._proxy_doc = self.doc
     
   ###########################
@@ -62,10 +61,10 @@ class Document:
   ###########################
 
   def set_footer_function(self,footer_func):
-    self.doc.footer = footer_func
+    self.doc.footer_callback = footer_func
 
   def set_header_function(self,header_func):
-    self.doc.header = header_func
+    self.doc.header_callback = header_func
 
   def add_page(self):
     self.doc.add_page()
@@ -103,9 +102,9 @@ class Document:
 
   def preview(self):
     '''Opens an alert to preview'''
-    pdf_form = utils.preview_pdf(self._proxy_doc.output('blob'))
+    pdf_form = utils.pdf_to_component(self._proxy_doc.output('blob'))
     anvil.alert(pdf_form,large=True)
 
   def get_form(self):
     '''Returns a nestable component wich allows the pdf to be embedded into forms'''
-    return utils.preview_pdf(self.to_blob())
+    return utils.pdf_to_component(self.to_blob())

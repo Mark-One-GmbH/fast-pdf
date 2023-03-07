@@ -19,7 +19,7 @@ def download_pdf(blob_media):
   import anvil.media
   anvil.media.download(blob_media)
 
-def preview_pdf(blob_media):
+def pdf_to_component(blob_media):
   from ..components.preview import preview
   comp =  preview()
   comp.pdf_media = blob_media

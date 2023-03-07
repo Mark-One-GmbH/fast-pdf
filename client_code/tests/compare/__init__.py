@@ -21,8 +21,8 @@ class compare(compareTemplate):
     
   def run_test(self):
     self.client_pdf,self.server_pdf = basic_pdf_test.run_test()
-    self.server_preview.pdf_media = self.client_pdf
-    self.client_preview.pdf_media = self.server_pdf
+    self.server_preview.pdf_media = self.server_pdf
+    self.client_preview.pdf_media = self.client_pdf
 
   def server_print_btn_click(self, **event_args):
     utils.print_pdf(self.server_pdf)
@@ -35,6 +35,17 @@ class compare(compareTemplate):
 
   def client_download_btn_click(self, **event_args):
     utils.download_pdf(self.client_pdf)
+
+  def server_preview_btn_click(self, **event_args):
+    comp = utils.pdf_to_component(self.server_pdf)
+    alert(comp,large=True)
+
+  def client_preview_btn_click(self, **event_args):
+    comp = utils.pdf_to_component(self.client_pdf)
+    alert(comp,large=True)
+
+
+
 
 
 
