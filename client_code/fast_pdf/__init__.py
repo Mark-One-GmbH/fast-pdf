@@ -144,7 +144,7 @@ class Document:
 
   def preview(self):
     '''Opens an alert to preview'''
-    pdf_form = utils.pdf_to_component(self._proxy_doc.output('blob'))
+    pdf_form = utils.pdf_to_component(self.to_blob())
     anvil.alert(pdf_form,large=True)
 
   def get_form(self):
