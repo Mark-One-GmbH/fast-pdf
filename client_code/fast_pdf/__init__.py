@@ -34,7 +34,7 @@ class Document:
     self.server_side = anvil.is_server_side()
     
     #Set Base Renderer
-    self._set_renderer(anvil.is_server_side())
+    self.renderer_type = self._set_renderer(anvil.is_server_side())
 
     #State Variables
     
@@ -48,15 +48,16 @@ class Document:
 
     #Set proxy classes depending if code is executed on server or client runtime
     if not self.server_side:
-      self._set_jspdf_renderer()
+      return self._set_jspdf_renderer()
     else:
-      self._set_fpdf_renderer()
+      return self._set_fpdf_renderer()
 
 
   def _set_jspdf_renderer(self):
     from .jspdf import jsPdf
     self.doc = jsPdf(self)
     self._proxy_doc = self.doc.doc
+    return 'jspdf'
 
   def _set_fpdf_renderer(self):
     from .fpdf import CustomFPDF
@@ -68,6 +69,7 @@ class Document:
     self.doc.set_right_margin(self.margin_right)
     self.doc.set_top_margin(self.margin_top)
     self._proxy_doc = self.doc
+    return 'fpdf'
     
   ###########################
   #Public Methods
@@ -76,7 +78,12 @@ class Document:
   def add_page(self):
     self.doc.add_page()
 
+  def add_font(self):
+    if self.renderer_type == 'fpdf':return
+    self.doc.add_font()
+    
   def set_font(self,font_name,size,style=''):
+    if self.renderer_type == 'fpdf': font_name = 'Arial'
     self.doc.set_font(font_name,size=size,style=style)
       
   def cell(self,width,height,text,border=0,ln=0):
