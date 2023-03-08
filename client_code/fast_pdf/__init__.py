@@ -79,12 +79,10 @@ class Document:
     self.doc.add_page()
 
   def add_font(self):
-    if self.renderer_type == 'fpdf':return
     self.doc.add_font()
-    
-  def set_font(self,font_name,size,style=''):
-    if self.renderer_type == 'fpdf': font_name = 'Arial'
-    self.doc.set_font(font_name,size=size,style=style)
+
+  def set_font(self,font_name,size=19,font_style='Regular'):
+    self.doc.set_font(font_name,size=size,font_style=font_style)
       
   def cell(self,width,height,text,border=0,ln=0):
     self.doc.cell(width,height,text,border=border,ln=ln)

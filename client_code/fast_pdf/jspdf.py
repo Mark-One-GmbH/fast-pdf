@@ -58,19 +58,13 @@ class jsPdf:
     self._reset_x()
     self._reset_y()
 
-  def add_font(self):
+  def add_font(self,file_name,font_name,base_64_font,font_style='Regular'):
     from .. import fonts
-    self.doc.addFileToVFS("Poppins.TTF", fonts.poppins_medium)
-    self.doc.addFont("Poppins.TTF", "poppins", "Regular")
-    print('setted add font')
-
-
+    self.doc.addFileToVFS(file_name, base_64_font)
+    self.doc.addFont(file_name, font_name, font_style)
     
-  def _translate_style(self,fpdf_style):
-    return {'B':'bold','I':'italic','U':'underline','BI':'bolditalics'}.get(fpdf_style,'normal')
-    
-  def set_font(self,font_name,size=10,style=''):
-    self.doc.setFont('poppins','Regular','bold')
+  def set_font(self,font_name,font_style='Regular',size=10):
+    self.doc.setFont(font_name,font_style)
     self.doc.setFontSize(size)
 
   def _check_new_page(self,offset):
