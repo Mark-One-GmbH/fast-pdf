@@ -7,13 +7,15 @@ def media_obj_to_base64(media_obj):
   import base64
   return base64.b64encode(media_obj.get_bytes()).decode('utf-8')
     
-def print_pdf(blob_media):
+def print_pdf(blob_media,new_tab=False):
   '''prints an anvil blob media of type pdf'''
-  try:
+  if new_tab:
+    import anvil.media
+    anvil.media.print_media(blob_media)
+  else:
     from anvil.js.window import printJS
     printJS({'printable':media_obj_to_base64(blob_media), 'type': 'pdf', 'base64': True})
-  except Exception as e:
-    print('Warning could not print document',e)
+
 
 def download_pdf(blob_media):
   import anvil.media

@@ -101,7 +101,6 @@ class Document:
 
   def set_font(self,font_name,size=19,style=''):
     self.doc.set_font(font_name,size=size,style=style)
-
       
   def cell(self,width,height,text,border=0,ln=0):
     self.doc.cell(width,height,text,border=border,ln=ln)
@@ -134,9 +133,9 @@ class Document:
   #Display modes for the pdf
   ############################
   
-  def print(self):
+  def print(self,new_tab=False):
     '''prints the pdf to the browser window'''
-    utils.print_pdf(self.to_blob())
+    utils.print_pdf(self.to_blob(),new_tab=new_tab)
 
   def download(self):
     '''downloads the pdf file'''
