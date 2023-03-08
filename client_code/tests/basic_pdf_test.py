@@ -3,15 +3,10 @@ from ..fast_pdf import Document
 from datetime import datetime
 
 
-def basic_document():
+def basic_document(company_logo):
   '''
   Returns a Document Instance that contains basic layouts
   '''
-
-  #get Header logo
-  import anvil.media
-  company_logo = anvil.URLMedia('https://static.wixstatic.com/media/7a2c3b_422826ce39644fc080d206c80ce59612~mv2.png/v1/fill/w_462,h_455,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Kopie%20von%20M1_standard_black_transparent%20background_low.png')
-  
   #0. Define some common variables
   line_h = 5 #standard line height
   
@@ -71,8 +66,12 @@ def basic_document():
 #################
 def run_test():
   '''returns an anvil blob media pdf'''
+ #get Header logo
+  import anvil.media
+  company_logo = anvil.URLMedia('https://static.wixstatic.com/media/7a2c3b_422826ce39644fc080d206c80ce59612~mv2.png/v1/fill/w_462,h_455,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Kopie%20von%20M1_standard_black_transparent%20background_low.png')
+  
   client_start = datetime.now()
-  doc = basic_document()
+  doc = basic_document(company_logo)
   client_blob = doc.to_blob()
   print('client done',datetime.now()-client_start)
 
