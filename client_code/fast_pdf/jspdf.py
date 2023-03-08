@@ -59,7 +59,6 @@ class jsPdf:
     self._reset_y()
 
   def add_font(self,file_name,font_name,base_64_font,font_style=''):
-    from .. import fonts
     self.doc.addFileToVFS(file_name, base_64_font)
     self.doc.addFont(file_name, font_name, font_style)
     
