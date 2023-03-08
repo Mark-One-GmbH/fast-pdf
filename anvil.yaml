@@ -7,7 +7,7 @@ services:
   client_config: {}
   server_config: {file_table: files}
 startup: {type: form, module: tests.compare}
-package_name: FastPDF
+package_name: fast_pdf
 allow_embedding: false
 name: FastPDF
 runtime_options:
