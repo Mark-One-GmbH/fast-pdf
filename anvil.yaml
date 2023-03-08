@@ -3,9 +3,6 @@ services:
 - source: /runtime/services/tables.yml
   client_config: {}
   server_config: {}
-- source: /runtime/services/anvil/files.yml
-  client_config: {}
-  server_config: {file_table: files}
 startup: {type: form, module: tests.compare}
 package_name: fast_pdf
 allow_embedding: false
