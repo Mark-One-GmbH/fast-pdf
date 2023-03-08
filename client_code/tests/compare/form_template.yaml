@@ -1,6 +1,6 @@
 container:
   type: ColumnPanel
-  properties: {col_widths: '{"IOVSAH":26,"STMDKL":25}'}
+  properties: {col_widths: '{"STMDKL":29,"NGBZYQ":2,"MUYFKS":29}'}
 components:
 - type: FlowPanel
   properties: {role: null, spacing: medium, align: left, tooltip: '', border: '',
@@ -20,12 +20,16 @@ components:
     name: pdf_dd
     layout_properties: {grid_position: 'RQWIMW,BJVKWM', full_width_row: true}
     event_bindings: {change: pdf_dd_change}
+- type: Spacer
+  properties: {height: 32}
+  name: spacer_1
+  layout_properties: {grid_position: 'RQWIMW,NGBZYQ', full_width_row: true}
 - type: ColumnPanel
   properties: {role: null, tooltip: '', border: '', foreground: '', visible: true,
     wrap_on: mobile, col_spacing: medium, spacing_above: small, col_widths: '{"BVHRHL":29,"RMKFYB":16,"TBFRMB":15}',
     spacing_below: small, background: ''}
   name: column_panel_2
-  layout_properties: {grid_position: 'RQWIMW,IOVSAH', full_width_row: true}
+  layout_properties: {grid_position: 'RQWIMW,MUYFKS', full_width_row: true}
   components:
   - type: Label
     properties: {role: null, align: left, tooltip: '', border: '', foreground: '',

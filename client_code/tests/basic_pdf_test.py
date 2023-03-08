@@ -28,8 +28,9 @@ def basic_document():
   
   #2. Create document Instance and set initial settings
   doc = Document(header_height=20,footer_height=5,header_function=header_func,footer_function=footer_func)
-  doc.add_font()
-  doc.set_font('poppins',9)
+  from .. import fonts
+  doc.add_font('Poppins-Medium.ttf','poppins-m',fonts.poppins_medium)
+  doc.set_font('poppins-m',9)
   
   #3. Main Document Body
   for i in range(50):

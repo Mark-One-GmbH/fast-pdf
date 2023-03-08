@@ -78,11 +78,30 @@ class Document:
   def add_page(self):
     self.doc.add_page()
 
-  def add_font(self):
-    self.doc.add_font()
+  def add_font(self,file_name,font_name,base_64_font=None,font_style=''):
+    '''
+    Adds a custom font to your pdf
 
-  def set_font(self,font_name,size=19,font_style='Regular'):
-    self.doc.set_font(font_name,size=size,font_style=font_style)
+    Preconditions:
+      Server: upload the my_font.ttf file to anvil storage -> name must be identical to "file_name"
+      Client: provide a base64 representation for your font and pass it over to "base_64_font"
+              Use something like: https://www.giftofspeed.com/base64-encoder/
+    
+    Args:
+      file_name: name of the .ttf file store on anvil storage e.g poppins-medium.ttf
+      font_name: name that will be used to reference from doc.set_font()
+      font_style: defines the font style
+    '''
+    
+    if self.renderer_type == 'jspdf':
+      self.doc.add_font(file_name,font_name,base_64_font,font_style)
+    else:
+      from anvil.files import data_files
+      self.doc.add_font(font_name,'',data_files[file_name])
+
+  def set_font(self,font_name,size=19,style=''):
+    self.doc.set_font(font_name,size=size,style=style)
+
       
   def cell(self,width,height,text,border=0,ln=0):
     self.doc.cell(width,height,text,border=border,ln=ln)

@@ -58,13 +58,13 @@ class jsPdf:
     self._reset_x()
     self._reset_y()
 
-  def add_font(self,file_name,font_name,base_64_font,font_style='Regular'):
+  def add_font(self,file_name,font_name,base_64_font,font_style=''):
     from .. import fonts
     self.doc.addFileToVFS(file_name, base_64_font)
     self.doc.addFont(file_name, font_name, font_style)
     
-  def set_font(self,font_name,font_style='Regular',size=10):
-    self.doc.setFont(font_name,font_style)
+  def set_font(self,font_name,style='',size=10):
+    self.doc.setFont(font_name,style)
     self.doc.setFontSize(size)
 
   def _check_new_page(self,offset):
