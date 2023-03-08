@@ -13,6 +13,9 @@ class jsPdf:
     self.margin_right = parent.margin_right
     self.header_height = parent.header_height
     self.footer_height = parent.footer_height
+    
+    self.footer_callback = parent.footer_function
+    self.header_callback = parent.header_function
 
     #JS PDF Proxy Object
     from anvil.js.window import jspdf
@@ -55,9 +58,11 @@ class jsPdf:
     self._reset_x()
     self._reset_y()
     
-
-  def set_font(self,font_name,size=10):
-    self.doc.setFont(font_name,'','normal')
+  def _translate_style(self,fpdf_style):
+    return {'B':'bold','I':'italic','U':'underline','BI':'bolditalics'}.get(fpdf_style,'normal')
+    
+  def set_font(self,font_name,size=10,style=''):
+    self.doc.setFont(font_name,'',self._translate_style(style))
     self.doc.setFontSize(size)
 
   def _check_new_page(self,offset):
@@ -83,5 +88,10 @@ class jsPdf:
   def doc(self,width, height, text):
     self.doc.text(text,height,width)
 
+  def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='MEDIUM',rotation=0):
+    '''Takes an image in form of a blob and prints it on the pdf'''
+    from . import utils
+    b64_image = utils.media_obj_to_base64(image_data)
+    self.doc.addImage(b64_image,'JPEG',x,y,w,h,alias,compression,rotation)
     
 

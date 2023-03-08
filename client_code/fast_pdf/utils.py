@@ -24,4 +24,12 @@ def pdf_to_component(blob_media):
   comp =  preview()
   comp.pdf_media = blob_media
   return comp
-  
+
+def media_obj_to_pil(blob_media):
+  try:
+    from PIL import Image
+    from io import BytesIO
+    return Image.open(BytesIO(blob_media.get_bytes()))
+  except Exception as e:
+    print('WARNING: image could not be converted')
+        

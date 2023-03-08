@@ -17,7 +17,7 @@ from . import utils
 
 
 class Document:
-  def __init__(self,page_height=297,page_width=210,margin_top=10,margin_bottom=10,margin_left=10,margin_right=10,header_height=0,footer_height=0):
+  def __init__(self,page_height=297,page_width=210,margin_top=10,margin_bottom=10,margin_left=10,margin_right=10,header_height=0,footer_height=0,header_function=None,footer_function=None):
     #Initial Variables that define the basic page layout
     self.page_height = page_height
     self.page_width = page_width
@@ -28,14 +28,15 @@ class Document:
     self.header_height = header_height
     self.footer_height = footer_height
     
+    self.header_function = header_function
+    self.footer_function = footer_function
+    
     self.server_side = anvil.is_server_side()
     
     #Set Base Renderer
     self._set_renderer(anvil.is_server_side())
 
     #State Variables
-    
-
     
     
   def _set_renderer(self,is_server_side):
@@ -60,6 +61,8 @@ class Document:
   def _set_fpdf_renderer(self):
     from .fpdf import CustomFPDF
     self.doc = CustomFPDF(unit='mm',format=[self.page_width,self.page_height])
+    self.doc.header_callback = self.header_function
+    self.doc.footer_callback = self.footer_function
     self.doc.set_margin(self.margin_bottom)
     self.doc.set_left_margin(self.margin_left)
     self.doc.set_right_margin(self.margin_right)
@@ -69,18 +72,12 @@ class Document:
   ###########################
   #Public Methods
   ###########################
-
-  def set_footer_function(self,footer_func):
-    self.doc.footer_callback = footer_func
-
-  def set_header_function(self,header_func):
-    self.doc.header_callback = header_func
-
+  
   def add_page(self):
     self.doc.add_page()
 
   def set_font(self,font_name,size,style=''):
-    self.doc.set_font(font_name,size=size)
+    self.doc.set_font(font_name,size=size,style=style)
       
   def cell(self,width,height,text,border=0,ln=0):
     self.doc.cell(width,height,text,border=border,ln=ln)
@@ -88,11 +85,13 @@ class Document:
   def spacer(self,height):
     self.cell(1,height,'',ln=1)
 
-  def build_header(self):
-    pass
+  def new_line(self,height):
+    self.doc.ln(height)
 
-  def build_footer(self):
-    pass
+  def add_image(self,image_data,x=0,y=0,width=100,height=50):
+    '''Takes an image in form of a blob and prints it on the pdf'''
+    self.doc.add_image(image_data,x=x,y=y,width=width,height=height)
+    
 
   ###########################
   #Output functions
