@@ -73,10 +73,10 @@ class jsPdf:
     else:
       self.doc.addPage()
       
-    self.header()
     self.footer()
-    self._reset_x()
     self._reset_y()
+    self.header()
+    self._reset_x()
 
   def add_font(self,file_name,font_name,base_64_font,font_style=''):
     self.doc.addFileToVFS(file_name, base_64_font)
