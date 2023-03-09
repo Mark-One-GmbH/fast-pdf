@@ -116,6 +116,12 @@ class jsPdf:
 
   def line(self,x_start,y_start,x_end,y_end):
     self.doc.line(x_start,y_start,x_end,y_end)
+
+  def set_text_color(self,color):
+    self.doc.setTextColor(color)
+
+  def set_draw_color(self,color):
+    self.doc.setDrawColor(color)
     
   def doc(self,width, height, text):
     self.doc.text(text,height,width)

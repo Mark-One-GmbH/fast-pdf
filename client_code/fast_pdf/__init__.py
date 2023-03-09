@@ -117,6 +117,12 @@ class Document:
   def page_no(self):
     self.doc.page_no()
 
+  def set_text_color(self,color):
+    self.doc.set_text_color(color)
+
+  def set_draw_color(self,color):
+    self.doc.set_draw_color(color)
+
   def add_image(self,image_data,x=0,y=0,width=100,height=50):
     '''Takes an image in form of a blob and prints it on the pdf'''
     self.doc.add_image(image_data,x=x,y=y,width=width,height=height)
