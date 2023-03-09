@@ -102,8 +102,8 @@ class Document:
   def set_font(self,font_name,size=19,style=''):
     self.doc.set_font(font_name,size=size,style=style)
       
-  def cell(self,width,height,text,border=0,ln=0):
-    self.doc.cell(width,height,text,border=border,ln=ln)
+  def cell(self,width,height,text,border=0,ln=0,align='L'):
+    self.doc.cell(width,height,text,border=border,ln=ln,align=align)
 
   def spacer(self,height):
     self.cell(1,height,'',ln=1)
