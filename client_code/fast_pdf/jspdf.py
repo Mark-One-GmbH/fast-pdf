@@ -107,12 +107,12 @@ class jsPdf:
     elif align == 'R':
       self.doc.text(text,self.current_x + width,self.current_y+height,'right')
     else:
-      self.doc.cell(self.current_x,self.current_y,width,height,text,ln,'left')
-      #self.doc.text(text,self.current_x,self.current_y,'left')
+      #self.doc.cell(self.current_x,self.current_y,width,height,text,ln,'left')
+      self.doc.text(text,self.current_x,self.current_y,'left')
 
     
     self.current_x += width
-    if ln==3:#1: 
+    if ln==1: 
       self.current_y += height
       self._reset_x()
 
