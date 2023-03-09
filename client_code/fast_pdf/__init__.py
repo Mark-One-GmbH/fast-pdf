@@ -126,7 +126,6 @@ class Document:
       byte_string = bytes(self.doc.output())
       return anvil.BlobMedia("application/pdf", byte_string, name=f"{file_name}.pdf")
     else:
-      self._proxy_doc.autoPrint()
       return anvil.js.to_media(self._proxy_doc.output('blob'),content_type="application/pdf", name=f"{file_name}.pdf")
 
 
