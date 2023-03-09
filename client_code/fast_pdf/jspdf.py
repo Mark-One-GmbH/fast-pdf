@@ -47,14 +47,14 @@ class jsPdf:
 
     
   def add_page(self):
-      
-    self.header()
-    self.footer()
     #ignore first page since fpdf start with 0 pages but js pdf with 1
     if self.first_page:
       self.first_page = False
     else:
       self.doc.addPage()
+      
+    self.header()
+    self.footer()
     self._reset_x()
     self._reset_y()
 
@@ -86,6 +86,9 @@ class jsPdf:
     if ln==1: 
       self.current_y += height
       self._reset_x()
+
+  def line(self,x_start,y_start,x_end,y_end):
+    self.doc.line(x_start,y_start,x_end,y_end)
     
   def doc(self,width, height, text):
     self.doc.text(text,height,width)
