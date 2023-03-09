@@ -100,7 +100,8 @@ class Document:
       self.doc.add_font(font_name,'',data_files[file_name])
 
   def set_font(self,font_name,size=19,style=''):
-    self.doc.set_font(font_name,size=size,style=style)
+    print(font_name,style,size)
+    self.doc.set_font(font_name,style,size)
       
   def cell(self,width,height,text,border=0,ln=0,align='L'):
     self.doc.cell(width,height,text,border=border,ln=ln,align=align)

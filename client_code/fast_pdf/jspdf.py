@@ -43,8 +43,8 @@ class jsPdf:
 
     #reset current font attributes
     if font_tuple:
-      font_name,size,style = font_tuple
-      self.set_font(font_name,size,style)
+      font_name,style,size = font_tuple
+      self.set_font(font_name,style,size)
     
 
 
@@ -60,8 +60,8 @@ class jsPdf:
 
     #reset current font attributes
     if font_tuple:
-      font_name,size,style = font_tuple
-      self.set_font(font_name,size,style)
+      font_name,style,size = font_tuple
+      self.set_font(font_name,style,size)
 
     
   def add_page(self):
@@ -82,8 +82,8 @@ class jsPdf:
     self.doc.addFileToVFS(file_name, base_64_font)
     self.doc.addFont(file_name, font_name, font_style)
     
-  def set_font(self,font_name,size=10,style=''):
-    self.current_font = (font_name,size,style)
+  def set_font(self,font_name,style='',size=10):
+    self.current_font = (font_name,style,size)
     self.doc.setFont(font_name,style)
     self.doc.setFontSize(size)
 
@@ -101,12 +101,14 @@ class jsPdf:
     #check if new page must be added
     self._check_new_page(height)
 
+
     if align == 'C':
-      self.doc.text(text,self.current_x + width/2,self.current_y,'center')
+      self.doc.text(text,self.current_x + width/2,self.current_y+height,'center')
     elif align == 'R':
-      self.doc.text(text,self.current_x + width,self.current_y,'right')
+      self.doc.text(text,self.current_x + width,self.current_y+height,'right')
     else:
       self.doc.text(text,self.current_x,self.current_y,'left')
+
     
     self.current_x += width
     if ln==1: 
