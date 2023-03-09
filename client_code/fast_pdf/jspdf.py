@@ -33,7 +33,6 @@ class jsPdf:
     self.current_font = None
     self.page_number = 0
 
-
   def header(self): 
     # get current font attributes
     font_tuple = self.current_font
@@ -117,11 +116,11 @@ class jsPdf:
   def line(self,x_start,y_start,x_end,y_end):
     self.doc.line(x_start,y_start,x_end,y_end)
 
-  def set_text_color(self,color):
-    self.doc.setTextColor(color)
+  def set_text_color(self,color_1,color_2=None,color_3=None):
+    self.doc.setTextColor(color_1,color_2,color_3)
 
-  def set_draw_color(self,color):
-    self.doc.setDrawColor(color)
+  def set_draw_color(self,color_1,color_2=None,color_3=None):
+    self.doc.setDrawColor(color_1,color_2,color_3)
     
   def doc(self,width, height, text):
     self.doc.text(text,height,width)
