@@ -114,6 +114,9 @@ class Document:
   def line(self,x_start,y_start,x_end,y_end):
     self.doc.line(x_start,y_start,x_end,y_end)
 
+  def page_no(self):
+    self.doc.page_no()
+
   def add_image(self,image_data,x=0,y=0,width=100,height=50):
     '''Takes an image in form of a blob and prints it on the pdf'''
     self.doc.add_image(image_data,x=x,y=y,width=width,height=height)

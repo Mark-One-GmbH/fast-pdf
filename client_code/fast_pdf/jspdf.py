@@ -30,23 +30,44 @@ class jsPdf:
     #Helper Flags
     self.auto_page_break = True
     self.first_page = True
+    self.current_font = None
+    self.page_number = 0
 
 
-  def header(self):
+  def header(self): 
+    # get current font attributes
+    font_tuple = self.current_font
+    
     self._reset_x()
     self.current_y = self.margin_top
     self.header_callback(self)
 
+    #reset current font attributes
+    if font_tuple:
+      font_name,size,style = font_tuple
+      self.set_font(font_name,size,style)
+    
+
 
   def footer(self):
+    # get current font attributes
+    font_tuple = self.current_font
+    
     self._reset_x()
     self.current_y = self.page_height - self.margin_bottom - self.footer_height
     self.auto_page_break = False
     self.footer_callback(self)
     self.auto_page_break = True
 
+    #reset current font attributes
+    if font_tuple:
+      font_name,size,style = font_tuple
+      self.set_font(font_name,size,style)
+
     
   def add_page(self):
+    self.page_number += 1
+    
     #ignore first page since fpdf start with 0 pages but js pdf with 1
     if self.first_page:
       self.first_page = False
@@ -63,6 +84,7 @@ class jsPdf:
     self.doc.addFont(file_name, font_name, font_style)
     
   def set_font(self,font_name,size=10,style=''):
+    self.current_font = (font_name,size,style)
     self.doc.setFont(font_name,style)
     self.doc.setFontSize(size)
 
@@ -103,5 +125,7 @@ class jsPdf:
     from . import utils
     b64_image = utils.media_obj_to_base64(image_data)
     self.doc.addImage(b64_image,'JPEG',x,y,w,h,alias,compression,rotation)
-    
+
+  def page_no(self):
+    return self.page_number
 
