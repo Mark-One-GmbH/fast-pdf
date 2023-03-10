@@ -117,6 +117,21 @@ class jsPdf:
       self.current_y += height
       self._reset_x()
 
+  def multi_cell(self,width,height,text,border = 0, ln = 1, align='L'):
+    words_list = text.split(' ')
+
+    current_row_text = ''
+    for word in words_list:
+      if self.doc.getTextDimensions(current_row_text + word).get('w') >= width:
+        self.cell(width,height,current_row_text,border=border,ln=1)
+        current_row_text = ''
+      
+      current_row_text += word + ' '
+
+    if current_row_text:
+      self.cell(width,height,current_row_text,border=border,ln=1)
+      
+
   def line(self,x_start,y_start,x_end,y_end):
     self.doc.line(x_start,y_start,x_end,y_end)
 

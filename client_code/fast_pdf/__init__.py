@@ -104,6 +104,9 @@ class Document:
       
   def cell(self,width,height,text,border=0,ln=0,align='L'):
     self.doc.cell(width,height,text,border=border,ln=ln,align=align)
+    
+  def multi_cell(self,width,height,text,border=0,ln=0,align='L'):
+    self.doc.multi_cell(width,height,text,border=border,ln=ln,align=align)
 
   def spacer(self,height):
     self.cell(1,height,'',ln=1)
