@@ -101,12 +101,13 @@ class jsPdf:
     #check if new page must be added
     self._check_new_page(height)
 
-    text_height = self.doc.getTextDimensions(text).get('h')
+    font_name,style,font_size = self.current_font
+    text_height = (height/2 + font_size * 0.106) if isinstance(height,(int,float)) and isinstance(font_size,(int,float)) else 4
 
     if align == 'C':
-      self.doc.text(text,self.current_x + width/2,self.current_y+height,'center')
+      self.doc.text(text,self.current_x + width/2,self.current_y+text_height,'center')
     elif align == 'R':
-      self.doc.text(text,self.current_x + width,self.current_y+height,'right')
+      self.doc.text(text,self.current_x + width,self.current_y+text_height,'right')
     else:
       self.doc.text(text,self.current_x,self.current_y+text_height,'left')
 
@@ -137,3 +138,33 @@ class jsPdf:
   def page_no(self):
     return self.page_number
 
+
+def get_additional_height_dict():
+  return {
+    6 : 0.62, #check
+    7 : 0.73,
+    8 : 0.84, #check
+    9 : 0.95,
+    10 : 1.06, #check
+    11 : 1.17,
+    12 : 1.28, #check
+    13 : 1.38,
+    14 : 1.48, #check
+    15 : 1.4,
+    16 : 1.7, #check
+    17 : 1.66,
+    18 : 1.92, #check
+    19 : 2,
+    20 : 2.12, #check
+    11 : 2.33,
+    22 : 2.34, #check
+    23 : 2.62,
+    24 : 2.54, #check
+    25 : 2.86,
+    26 : 2.76, #check
+    27 : 2.62,
+    28 : 2.96, #check
+    29 : 2.86,
+    30 : 3.18, #check
+    40 : 4.26, #check
+  }
