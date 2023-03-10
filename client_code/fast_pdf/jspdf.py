@@ -89,7 +89,6 @@ class jsPdf:
     self._reset_x()
     
   def will_page_break(self,height):
-    print(self.current_y, height, self.margin_bottom, self.footer_height, self.page_height)
     return self.current_y + height + self.margin_bottom + self.footer_height >= self.page_height
 
   def add_font(self,file_name,font_name,base_64_font,font_style=''):
