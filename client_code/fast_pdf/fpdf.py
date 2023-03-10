@@ -21,3 +21,8 @@ class CustomFPDF(FPDF):
     from . import utils
     pil_img = utils.media_obj_to_pil(image_data)
     self.image(pil_img,x,y,w,h)
+
+  def vertical_text(self,width,height,text,border=0,ln=0,align='L',fill=False):
+    self.rotate(90)
+    self.cell(width, height, text, border =border, ln=ln, align=align, fill=fill)
+    self.rotate(0)

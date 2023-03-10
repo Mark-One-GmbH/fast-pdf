@@ -109,6 +109,9 @@ class Document:
       
   def cell(self,width,height,text,border=0,ln=0,align='L',fill=False):
     self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill)
+      
+  def vertical_text(self,width,height,text,border=0,ln=0,align='L',fill=False):
+    self.doc.vertical_text(width,height,text,border=border,ln=ln,align=align,fill=fill)
     
   def multi_cell(self,width,height,text,border=0,ln=0,align='L'):
     self.doc.multi_cell(width,height,text,border=border,ln=ln,align=align)

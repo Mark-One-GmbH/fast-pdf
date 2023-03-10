@@ -109,8 +109,11 @@ class jsPdf:
 
   def _reset_y(self):
     self.current_y = self.margin_top
+
+  def vertical_text(self,width,height,text,border = 0, ln = 1, align='L', fill=False):
+    self.cell(width,height,text,border=border,ln=ln,align=align,fill=fill, rotate = 90)
     
-  def cell(self,width,height,text,border = 0, ln = 1, align='L', fill=False):
+  def cell(self,width,height,text,border = 0, ln = 1, align='L', fill=False, rotate=0):
     #check if new page must be added
     self._check_new_page(height)
 
@@ -125,7 +128,7 @@ class jsPdf:
     elif align == 'R':
       self.doc.text(text,self.current_x + width,self.current_y+text_height,'right')
     else:
-      self.doc.text(text,self.current_x,self.current_y+text_height,'left')
+      self.doc.text(text,self.current_x,self.current_y+text_height,'left', angle=rotate)
 
     
     self.current_x += width
