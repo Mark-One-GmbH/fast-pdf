@@ -101,14 +101,14 @@ class jsPdf:
     #check if new page must be added
     self._check_new_page(height)
 
+    text_height = self.doc.getTextDimensions(text).get('h')
 
     if align == 'C':
       self.doc.text(text,self.current_x + width/2,self.current_y+height,'center')
     elif align == 'R':
       self.doc.text(text,self.current_x + width,self.current_y+height,'right')
     else:
-      #self.doc.cell(self.current_x,self.current_y,width,height,text,ln,'left')
-      self.doc.text(text,self.current_x,self.current_y,'left')
+      self.doc.text(text,self.current_x,self.current_y+text_height,'left')
 
     
     self.current_x += width
