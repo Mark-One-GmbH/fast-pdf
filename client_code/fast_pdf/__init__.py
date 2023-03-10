@@ -123,6 +123,9 @@ class Document:
   def set_draw_color(self,color_1,color_2=None,color_3=None):
     self.doc.set_draw_color(color_1,color_2,color_3)
 
+  def set_line_width(self,line_width):
+    self.doc.set_line_width(line_width)
+
   def add_image(self,image_data,x=0,y=0,width=100,height=50):
     '''Takes an image in form of a blob and prints it on the pdf'''
     self.doc.add_image(image_data,x=x,y=y,width=width,height=height)
