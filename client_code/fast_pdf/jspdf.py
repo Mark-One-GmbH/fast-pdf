@@ -117,18 +117,24 @@ class jsPdf:
     #check if new page must be added
     self._check_new_page(height)
 
-    font_name,style,font_size = self.current_font
-    text_height = (height/2 + font_size * 0.106) if isinstance(height,(int,float)) and isinstance(font_size,(int,float)) else 4
-
     if fill:
-      self.doc.rect(self.current_x, self.current_y, width, height, 'F')
+      rect_height = self.doc.getTextDimensions(text).get('w') + height if rotate == 90 else height
+      add_height = self.doc.getTextDimensions(text).get('w') + height if rotate == 90 else 0
+      self.doc.rect(self.current_x, self.current_y - add_height, width, rect_height, 'F')
+
+    font_name,style,font_size = self.current_font
+    add_height = (height/2 + font_size * 0.106) if isinstance(height,(int,float)) and isinstance(font_size,(int,float)) else 4
+
+    #consider rotate
+    add_height -= height if rotate == 90 else 0
+    add_width = (font_size * 0.106) if rotate == 90 else 0
 
     if align == 'C':
-      self.doc.text(text,self.current_x + width/2,self.current_y+text_height,'center')
+      self.doc.text(text,self.current_x + width/2, self.current_y+add_height,'center')
     elif align == 'R':
-      self.doc.text(text,self.current_x + width,self.current_y+text_height,'right')
+      self.doc.text(text,self.current_x + width, self.current_y+add_height,'right')
     else:
-      self.doc.text(text,self.current_x,self.current_y+text_height,'left', angle=rotate)
+      self.doc.text(text,self.current_x + add_width, self.current_y+add_height,{'align':'left', 'angle':rotate})
 
     
     self.current_x += width
