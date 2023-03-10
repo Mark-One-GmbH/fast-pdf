@@ -16,10 +16,16 @@ class jsPdf:
     
     self.footer_callback = parent.footer_function
     self.header_callback = parent.header_function
+    
+    self.orientation = parent.orientation
+
+    if self.get_orientation() == 'landscape':
+      self.page_width = parent.page_height
+      self.page_height = parent.page_width
 
     #JS PDF Proxy Object
     from anvil.js.window import jspdf
-    self.doc = jspdf.jsPDF('p', 'mm',[self.page_width,self.page_height])
+    self.doc = jspdf.jsPDF(self.get_orientation(), 'mm',[self.page_width,self.page_height])
     
     #Cursor position
     self.current_x = 0
@@ -32,6 +38,9 @@ class jsPdf:
     self.first_page = True
     self.current_font = None
     self.page_number = 0
+
+  def get_orientation(self):
+    return 'portrait' if self.orientation == 'P' else 'landscape'
 
   def header(self): 
     # get current font attributes
@@ -64,19 +73,24 @@ class jsPdf:
       self.set_font(font_name,style,size)
 
     
-  def add_page(self):
+  def add_page(self,orientation='P'):
     self.page_number += 1
-    
+
+    self.orientation = orientation
     #ignore first page since fpdf start with 0 pages but js pdf with 1
     if self.first_page:
       self.first_page = False
     else:
-      self.doc.addPage()
+      self.doc.addPage('a4',self.get_orientation())
       
     self.footer()
     self._reset_y()
     self.header()
     self._reset_x()
+    
+  def will_page_break(self,height):
+    print(self.current_y, height, self.margin_bottom, self.footer_height, self.page_height)
+    return self.current_y + height + self.margin_bottom + self.footer_height >= self.page_height
 
   def add_font(self,file_name,font_name,base_64_font,font_style=''):
     self.doc.addFileToVFS(file_name, base_64_font)
@@ -89,7 +103,7 @@ class jsPdf:
 
   def _check_new_page(self,offset):
     if self.auto_page_break and self.current_y + offset + self.margin_bottom + self.footer_height >= self.page_height: 
-      self.add_page()
+      self.add_page(orientation=self.orientation)
 
   def _reset_x(self):
     self.current_x = self.margin_left
@@ -97,12 +111,15 @@ class jsPdf:
   def _reset_y(self):
     self.current_y = self.margin_top
     
-  def cell(self,width,height,text,border = 0, ln = 1, align='L'):
+  def cell(self,width,height,text,border = 0, ln = 1, align='L', fill=False):
     #check if new page must be added
     self._check_new_page(height)
 
     font_name,style,font_size = self.current_font
     text_height = (height/2 + font_size * 0.106) if isinstance(height,(int,float)) and isinstance(font_size,(int,float)) else 4
+
+    if fill:
+      self.doc.rect(self.current_x, self.current_y, width, height, 'F')
 
     if align == 'C':
       self.doc.text(text,self.current_x + width/2,self.current_y+text_height,'center')
@@ -156,8 +173,20 @@ class jsPdf:
   def set_draw_color(self,color_1,color_2=None,color_3=None):
     self.doc.setDrawColor(color_1,color_2,color_3)
 
+  def set_fill_color(self,color_1,color_2=None,color_3=None):
+    self.doc.setFillColor(color_1,color_2,color_3)
+
   def set_line_width(self,line_width):
     self.doc.setLineWidth(line_width)
+
+  def get_x(self):
+    return self.current_x
+
+  def get_y(self):
+    return self.current_y
+
+  def rotate(self,angle):
+    self.doc.rotate(angle)
     
   def doc(self,width, height, text):
     self.doc.text(text,height,width)

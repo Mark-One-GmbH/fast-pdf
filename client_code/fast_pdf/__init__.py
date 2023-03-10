@@ -17,7 +17,7 @@ from . import utils
 
 
 class Document:
-  def __init__(self,page_height=297,page_width=210,margin_top=10,margin_bottom=10,margin_left=10,margin_right=10,header_height=0,footer_height=0,header_function=None,footer_function=None):
+  def __init__(self,page_height=297,page_width=210,margin_top=10,margin_bottom=10,margin_left=10,margin_right=10,header_height=0,footer_height=0,header_function=None,footer_function=None,orientation='P'):
     #Initial Variables that define the basic page layout
     self.page_height = page_height
     self.page_width = page_width
@@ -30,6 +30,8 @@ class Document:
     
     self.header_function = header_function
     self.footer_function = footer_function
+
+    self.orientation = orientation
     
     self.server_side = anvil.is_server_side()
     
@@ -75,8 +77,11 @@ class Document:
   #Public Methods
   ###########################
   
-  def add_page(self):
-    self.doc.add_page()
+  def add_page(self,orientation='P'):
+    self.doc.add_page(orientation)
+
+  def will_page_break(self,height):
+    return self.doc.will_page_break(height)
 
   def add_font(self,file_name,font_name,base_64_font=None,font_style=''):
     '''
@@ -102,8 +107,8 @@ class Document:
   def set_font(self,font_name,size=19,style=''):
     self.doc.set_font(font_name,style,size)
       
-  def cell(self,width,height,text,border=0,ln=0,align='L'):
-    self.doc.cell(width,height,text,border=border,ln=ln,align=align)
+  def cell(self,width,height,text,border=0,ln=0,align='L',fill=False):
+    self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill)
     
   def multi_cell(self,width,height,text,border=0,ln=0,align='L'):
     self.doc.multi_cell(width,height,text,border=border,ln=ln,align=align)
@@ -125,9 +130,21 @@ class Document:
 
   def set_draw_color(self,color_1,color_2=None,color_3=None):
     self.doc.set_draw_color(color_1,color_2,color_3)
+    
+  def set_fill_color(self,color_1,color_2=None,color_3=None):
+    self.doc.set_fill_color(color_1,color_2,color_3)
 
   def set_line_width(self,line_width):
     self.doc.set_line_width(line_width)
+
+  def get_x(self):
+    return self.doc.get_x()
+
+  def get_y(self):
+    return self.doc.get_y()
+
+  def rotate(self,angle):
+    self.doc.rotate(angle)
 
   def add_image(self,image_data,x=0,y=0,width=100,height=50):
     '''Takes an image in form of a blob and prints it on the pdf'''
