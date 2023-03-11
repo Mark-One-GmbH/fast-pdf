@@ -129,16 +129,22 @@ class Document:
     return self.doc.page_no()
 
   def set_text_color(self,color_1,color_2=None,color_3=None):
-    self.doc.set_text_color(color_1,color_2,color_3)
+    if color_2 != None and color_3 != None:
+      self.doc.set_text_color(color_1,color_2,color_3)
+    else:
+      self.doc.set_text_color(color_1)
 
   def set_draw_color(self,color_1,color_2=None,color_3=None):
-    if color_2 and color_3:
+    if color_2 != None and color_3 != None:
       self.doc.set_draw_color(color_1,color_2,color_3)
     else:
       self.doc.set_draw_color(color_1)
     
   def set_fill_color(self,color_1,color_2=None,color_3=None):
-    self.doc.set_fill_color(color_1,color_2,color_3)
+    if color_2 != None and color_3 != None:
+      self.doc.set_fill_color(color_1,color_2,color_3)
+    else:
+      self.doc.set_fill_color(color_1)
 
   def set_line_width(self,line_width):
     self.doc.set_line_width(line_width)

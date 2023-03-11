@@ -113,7 +113,15 @@ class jsPdf:
   def vertical_text(self,width,height,text,border = 0, ln = 1, align='L', fill=False):
     self.cell(width,height,text,border=border,ln=ln,align=align,fill=fill, rotate = 90)
     
-  def cell(self,width,height,text,border = 0, ln = 1, align='L', fill=False, rotate=0):
+      
+    self.doc.text(text,self.current_x + add_width, self.current_y+add_height,{'align':'left', 'angle':rotate})
+                  
+    self.current_x += width
+    if ln==1: 
+      self.current_y += height
+      self._reset_x()
+    
+  def cell(self,width,height,text,border = 0, ln = 1, align='L', fill=False):
     #check if new page must be added
     self._check_new_page(height)
 
@@ -178,16 +186,22 @@ class jsPdf:
     self.doc.line(x_start,y_start,x_end,y_end)
 
   def set_text_color(self,color_1,color_2=None,color_3=None):
-    self.doc.setTextColor(color_1,color_2,color_3)
+    if color_2 != None and color_3 != None:
+      self.doc.setTextColor(color_1,color_2,color_3)
+    else:
+      self.doc.setTextColor(color_1)
 
   def set_draw_color(self,color_1,color_2=None,color_3=None):
-    if color_2 and color_3:
+    if color_2 != None and color_3 != None:
       self.doc.setDrawColor(color_1,color_2,color_3)
     else:
       self.doc.setDrawColor(color_1)
 
   def set_fill_color(self,color_1,color_2=None,color_3=None):
-    self.doc.setFillColor(color_1,color_2,color_3)
+    if color_2 != None and color_3 != None:
+      self.doc.setFillColor(color_1,color_2,color_3)
+    else:
+      self.doc.setFillColor(color_1)
 
   def set_line_width(self,line_width):
     self.doc.setLineWidth(line_width)
@@ -212,34 +226,3 @@ class jsPdf:
 
   def page_no(self):
     return self.page_number
-
-
-def get_additional_height_dict():
-  return {
-    6 : 0.62, #check
-    7 : 0.73,
-    8 : 0.84, #check
-    9 : 0.95,
-    10 : 1.06, #check
-    11 : 1.17,
-    12 : 1.28, #check
-    13 : 1.38,
-    14 : 1.48, #check
-    15 : 1.4,
-    16 : 1.7, #check
-    17 : 1.66,
-    18 : 1.92, #check
-    19 : 2,
-    20 : 2.12, #check
-    11 : 2.33,
-    22 : 2.34, #check
-    23 : 2.62,
-    24 : 2.54, #check
-    25 : 2.86,
-    26 : 2.76, #check
-    27 : 2.62,
-    28 : 2.96, #check
-    29 : 2.86,
-    30 : 3.18, #check
-    40 : 4.26, #check
-  }
