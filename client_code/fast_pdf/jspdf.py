@@ -118,21 +118,23 @@ class jsPdf:
     self._check_new_page(height)
 
     if fill:
-      rect_height = self.doc.getTextDimensions(text).get('w') + height if rotate == 90 else height
-      add_height = self.doc.getTextDimensions(text).get('w') + height if rotate == 90 else 0
-      self.doc.rect(self.current_x, self.current_y - add_height, width, rect_height, 'F')
+      rect_height = self.doc.getTextDimensions(text).get('w') + 2 if rotate == 90 else height
+      add_height = self.doc.getTextDimensions(text).get('w') + 1 if rotate == 90 else 0
+      rect_width = height if rotate == 90 else width
+      self.doc.rect(self.current_x, self.current_y - add_height, rect_width, rect_height, 'F')
 
     font_name,style,font_size = self.current_font
     add_height = (height/2 + font_size * 0.106) if isinstance(height,(int,float)) and isinstance(font_size,(int,float)) else 4
 
     #consider rotate
     add_height -= height if rotate == 90 else 0
-    add_width = (font_size * 0.106) if rotate == 90 else 0
+    add_width = (height/2 + font_size * 0.106) if rotate == 90 else 0
+    add_height = 0 if rotate == 90 else add_height
 
     if align == 'C':
-      self.doc.text(text,self.current_x + width/2, self.current_y+add_height,'center')
+      self.doc.text(text,self.current_x + width/2, self.current_y+add_height,{'align':'center', 'angle':rotate})
     elif align == 'R':
-      self.doc.text(text,self.current_x + width, self.current_y+add_height,'right')
+      self.doc.text(text + ' ',self.current_x + width, self.current_y+add_height,{'align':'right', 'angle':rotate})
     else:
       self.doc.text(text,self.current_x + add_width, self.current_y+add_height,{'align':'left', 'angle':rotate})
 
@@ -179,7 +181,10 @@ class jsPdf:
     self.doc.setTextColor(color_1,color_2,color_3)
 
   def set_draw_color(self,color_1,color_2=None,color_3=None):
-    self.doc.setDrawColor(color_1,color_2,color_3)
+    if color_2 and color_3:
+      self.doc.setDrawColor(color_1,color_2,color_3)
+    else:
+      self.doc.setDrawColor(color_1)
 
   def set_fill_color(self,color_1,color_2=None,color_3=None):
     self.doc.setFillColor(color_1,color_2,color_3)
