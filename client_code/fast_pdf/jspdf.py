@@ -152,6 +152,7 @@ class jsPdf:
       self._reset_x()
 
   def multi_cell(self,width,height,text,border = 0, ln = 1, align='L'):
+    if not text: return
     # splits the text into parts
     words_list = text.split(' ')
 
