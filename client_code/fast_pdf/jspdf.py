@@ -111,10 +111,18 @@ class jsPdf:
     self.current_y = self.margin_top
 
   def vertical_text(self,width,height,text,border = 0, ln = 1, align='L', fill=False):
-    self.cell(width,height,text,border=border,ln=ln,align=align,fill=fill, rotate = 90)
+    #check if new page must be added
+    self._check_new_page(height)
     
+    if fill:
+      rect_height = self.doc.getTextDimensions(text).get('w') + 2
+      add_height = self.doc.getTextDimensions(text).get('w') + 1
+      self.doc.rect(self.current_x, self.current_y - add_height, height, rect_height, 'F')
       
-    self.doc.text(text,self.current_x + add_width, self.current_y+add_height,{'align':'left', 'angle':rotate})
+    font_name,style,font_size = self.current_font
+    add_width = (height/2 + font_size * 0.106)
+      
+    self.doc.text(text,self.current_x + add_width, self.current_y, {'angle':90})
                   
     self.current_x += width
     if ln==1: 
@@ -126,27 +134,18 @@ class jsPdf:
     self._check_new_page(height)
 
     if fill:
-      rect_height = self.doc.getTextDimensions(text).get('w') + 2 if rotate == 90 else height
-      add_height = self.doc.getTextDimensions(text).get('w') + 1 if rotate == 90 else 0
-      rect_width = height if rotate == 90 else width
-      self.doc.rect(self.current_x, self.current_y - add_height, rect_width, rect_height, 'F')
+      self.doc.rect(self.current_x, self.current_y, width, height, 'F')
 
     font_name,style,font_size = self.current_font
     add_height = (height/2 + font_size * 0.106) if isinstance(height,(int,float)) and isinstance(font_size,(int,float)) else 4
 
-    #consider rotate
-    add_height -= height if rotate == 90 else 0
-    add_width = (height/2 + font_size * 0.106) if rotate == 90 else 0
-    add_height = 0 if rotate == 90 else add_height
-
     if align == 'C':
-      self.doc.text(text,self.current_x + width/2, self.current_y+add_height,{'align':'center', 'angle':rotate})
+      self.doc.text(text,self.current_x + width/2, self.current_y+add_height,{'align':'center'})
     elif align == 'R':
-      self.doc.text(text + ' ',self.current_x + width, self.current_y+add_height,{'align':'right', 'angle':rotate})
+      self.doc.text(text + ' ',self.current_x + width, self.current_y+add_height,{'align':'right'})
     else:
-      self.doc.text(text,self.current_x + add_width, self.current_y+add_height,{'align':'left', 'angle':rotate})
+      self.doc.text(text,self.current_x, self.current_y+add_height,{'align':'left'})
 
-    
     self.current_x += width
     if ln==1: 
       self.current_y += height
