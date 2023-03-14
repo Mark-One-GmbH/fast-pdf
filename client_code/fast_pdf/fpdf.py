@@ -1,5 +1,6 @@
 from fpdf import FPDF
 
+
 class CustomFPDF(FPDF):    
   def footer(self):
     try:
