@@ -17,7 +17,7 @@ class CustomFPDF(FPDF):
     except Exception as e:
       print('header error',e)
       
-  def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='MEDIUM',rotation=0):
+  def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='MEDIUM',rotation=0,keep_aspect_ratio=True):
     '''Takes an image in form of a blob and prints it on the pdf'''
     from . import utils
     if keep_aspect_ratio:
