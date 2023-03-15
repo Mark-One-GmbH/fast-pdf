@@ -222,9 +222,15 @@ class jsPdf:
 
   def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='FAST',rotation=0):
     '''Takes an image in form of a blob and prints it on the pdf'''
-    from . import utils
-    b64_image = utils.media_obj_to_base64(image_data)
-    self.doc.addImage(b64_image,'JPEG',x,y,w,h,alias,compression,rotation)
+    if isinstance(image_data,anvil.Media):
+      from . import utils
+      image_data = utils.media_obj_to_base64(image_data)
+    self.doc.addImage(image_data,'JPEG',x,y,w,h,alias,compression,rotation)
+
+  def add_qr_code(self, qr_data, x, y, w, h):
+    from anvil.js.window import QRious
+    img = QRious({ 'value': qr_data});
+    self.add_image(img.toDataURL(),x,y,w,h)
 
   def page_no(self):
     return self.page_number

@@ -13,6 +13,7 @@ def print_pdf(blob_media,new_tab=False):
     import anvil.media
     anvil.media.print_media(blob_media)
   else:
+    import anvil.js
     from anvil.js.window import printJS
     printJS({'printable':media_obj_to_base64(blob_media), 'type': 'pdf', 'base64': True})  
 
