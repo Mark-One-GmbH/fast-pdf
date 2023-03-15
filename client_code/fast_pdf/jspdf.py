@@ -220,9 +220,19 @@ class jsPdf:
   def doc(self,width, height, text):
     self.doc.text(text,height,width)
 
-  def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='FAST',rotation=0):
+  def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='FAST',rotation=0,keep_aspect_ratio=True):
     '''Takes an image in form of a blob and prints it on the pdf'''
     from . import utils
+    if keep_aspect_ratio:
+      d_width,d_height = utils.get_image_dimenstions(image_data)
+      image_ar = d_width/d_height
+      pdf_ar = w/h
+      if image_ar < pdf_ar:
+        #adjust height
+        w = h * image_ar
+      else:
+        h = w * image_ar
+        
     base_64_image = utils.media_obj_to_base64(image_data)
     self.doc.addImage(base_64_image,'JPEG',x,y,w,h,alias,compression,rotation)
 

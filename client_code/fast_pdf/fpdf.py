@@ -20,6 +20,16 @@ class CustomFPDF(FPDF):
   def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='MEDIUM',rotation=0):
     '''Takes an image in form of a blob and prints it on the pdf'''
     from . import utils
+    if keep_aspect_ratio:
+      d_width,d_height = utils.get_image_dimenstions(image_data)
+      image_ar = d_width/d_height
+      pdf_ar = w/h
+      if image_ar < pdf_ar:
+        #adjust height
+        w = h * image_ar
+      else:
+        h = w * image_ar
+        
     image_data = utils.media_obj_to_pil(image_data)
     self.image(image_data,x,y,w,h)
     
