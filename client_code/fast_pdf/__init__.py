@@ -162,9 +162,6 @@ class Document:
     '''Takes an image in form of a blob and prints it on the pdf'''
     self.doc.add_image(image_data,x=x,y=y,w=w,h=h)
     
-  def add_qr_code(self, qr_data,x=0,y=0,w=100,h=100):
-    self.doc.add_qr_code(qr_data,x,y,w,h)
-
   ###########################
   #Output functions
   ###########################

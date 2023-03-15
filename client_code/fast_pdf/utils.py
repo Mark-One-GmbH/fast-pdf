@@ -34,5 +34,5 @@ def media_obj_to_pil(blob_media):
     from io import BytesIO
     return Image.open(BytesIO(blob_media.get_bytes()))
   except Exception as e:
-    print('WARNING: image could not be converted')
+    print('WARNING: image could not be converted',e)
         
