@@ -4,7 +4,7 @@ from fpdf import FPDF
 class CustomFPDF(FPDF):    
   def footer(self):
     try:
-      if not hasattr(self, 'footer_callback') or self.header_callback is None: return
+      if not hasattr(self, 'footer_callback') or self.footer_callback is None: return
       self.footer_callback(self)
     except Exception as e:
       print('footer error',e)
