@@ -228,3 +228,6 @@ class jsPdf:
 
   def page_no(self):
     return self.page_number
+
+  def set_y(self,value):
+    pass # does nothing - js implements footer hight

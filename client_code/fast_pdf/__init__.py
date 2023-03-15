@@ -66,6 +66,7 @@ class Document:
     self.doc = CustomFPDF(unit='mm',format=[self.page_width,self.page_height])
     self.doc.header_callback = self.header_function
     self.doc.footer_callback = self.footer_function
+    self.doc.footer_height = self.footer_height
     self.doc.set_margin(self.margin_bottom)
     self.doc.set_left_margin(self.margin_left)
     self.doc.set_right_margin(self.margin_right)
@@ -124,6 +125,9 @@ class Document:
 
   def line(self,x_start,y_start,x_end,y_end):
     self.doc.line(x_start,y_start,x_end,y_end)
+
+  def set_y(self,value):
+    self.doc.set_y(value)
 
   def page_no(self):
     return self.doc.page_no()

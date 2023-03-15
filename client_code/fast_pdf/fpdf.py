@@ -1,7 +1,8 @@
 from fpdf import FPDF
 
 
-class CustomFPDF(FPDF):    
+class CustomFPDF(FPDF): 
+  
   def footer(self):
     try:
       if not hasattr(self, 'footer_callback') or self.footer_callback is None: return
