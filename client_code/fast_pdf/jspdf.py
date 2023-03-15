@@ -224,6 +224,9 @@ class jsPdf:
     '''Takes an image in form of a blob and prints it on the pdf'''
     from . import utils
     image_data = utils.media_obj_to_base64(image_data)
+    img = anvil.Image(source=image_data,display_mode='shrink_to_fit')
+    img.width = 100
+    print(img.height)
     self.doc.addImage(image_data,'JPEG',x,y,w,h,alias,compression,rotation)
 
   def page_no(self):
