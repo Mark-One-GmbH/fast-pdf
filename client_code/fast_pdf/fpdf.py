@@ -17,11 +17,11 @@ class CustomFPDF(FPDF):
     except Exception as e:
       print('header error',e)
       
-  def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='MEDIUM',rotation=0):
+  def add_image(self,image_data,x=0,y=0,w=0,h=0,alias='',compression='MEDIUM',rotation=0,keep_aspect_ratio=True):
     '''Takes an image in form of a blob and prints it on the pdf'''
     from . import utils
     image_data = utils.media_obj_to_pil(image_data)
-    self.image(image_data,x,y,w,h)
+    self.image(image_data,x,y,w,h,keep_aspect_ratio=keep_aspect_ratio)
     
   def vertical_text(self,width,height,text,border=0,ln=0,align='L',fill=False):
     self.rotate(90)

@@ -162,9 +162,9 @@ class Document:
   def rotate(self,angle):
     self.doc.rotate(angle)
 
-  def add_image(self,image_data,x=0,y=0,w=100,h=50):
+  def add_image(self,image_data,x=0,y=0,w=100,h=50,keep_aspect_ratio=True):
     '''Takes an image in form of a blob and prints it on the pdf'''
-    self.doc.add_image(image_data,x=x,y=y,w=w,h=h)
+    self.doc.add_image(image_data,x=x,y=y,w=w,h=h,keep_aspect_ratio=keep_aspect_ratio)
     
   ###########################
   #Output functions
