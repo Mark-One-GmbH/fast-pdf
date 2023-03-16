@@ -157,35 +157,40 @@ class jsPdf:
     if not text: return
     # splits the text into parts
     current_x = self.current_x
-    words_list = text.split(' ')
+    lines_list = text.splitlines()
 
-    current_row_text = ''
-    for word in words_list:
-      # in new lines when text is longer that actual cell -> shorten text until it fits and redo it until whole word is done
-      if not current_row_text and self.doc.getTextDimensions(word).get('w') > width:
-        current_row_text = word
-        while self.doc.getTextDimensions(current_row_text).get('w') > width: # loop over and cut last character of word
-          current_row_text = current_row_text[:-1]
-          if self.doc.getTextDimensions(current_row_text).get('w') <= width: # if word fits -> make cell and set remaining word - if it is shorter than cell -> continue, if it is larger -> redo cycle
-            self.cell(width,height,current_row_text,border=border,ln=1)
-            self.current_x = current_x
-            word = word[len(current_row_text):]
-            current_row_text = word
-        current_row_text += ' '
-        continue
-
-      # if text plus word is larger than cell -> append cell and start new row
-      print('+'+word+'+',self.doc.getTextDimensions(current_row_text + word).get('w'),width)
-      if self.doc.getTextDimensions(current_row_text + word).get('w') >= width:
+    for line in lines_list:
+      words_list = line.split(' ')
+      current_row_text = ''
+      for word in words_list:
+        # in new lines when text is longer that actual cell -> shorten text until it fits and redo it until whole word is done
+        if not current_row_text and self.doc.getTextDimensions(word).get('w') > width:
+          current_row_text = word
+          while self.doc.getTextDimensions(current_row_text).get('w') > width: # loop over and cut last character of word
+            current_row_text = current_row_text[:-1]
+            if self.doc.getTextDimensions(current_row_text).get('w') <= width: # if word fits -> make cell and set remaining word - if it is shorter than cell -> continue, if it is larger -> redo cycle
+              self.cell(width,height,current_row_text,border=border,ln=1)
+              self.current_x = current_x
+              word = word[len(current_row_text):]
+              current_row_text = word
+          current_row_text += ' '
+          continue
+  
+        # if text plus word is larger than cell -> append cell and start new row
+        print('+'+word+'+',self.doc.getTextDimensions(current_row_text + word).get('w'),width)
+        if self.doc.getTextDimensions(current_row_text + word).get('w') >= width:
+          self.cell(width,height,current_row_text,border=border,ln=1)
+          self.current_x = current_x
+          current_row_text = ''
+          
+        current_row_text += word + ' '
+  
+      # in the end if there is still a text to append
+      if current_row_text:
         self.cell(width,height,current_row_text,border=border,ln=1)
         self.current_x = current_x
-        current_row_text = ''
-        
-      current_row_text += word + ' '
 
-    # in the end if there is still a text to append
-    if current_row_text:
-      self.cell(width,height,current_row_text,border=border,ln=1)
+    self._reset_x()
       
 
   def line(self,x_start,y_start,x_end,y_end):
