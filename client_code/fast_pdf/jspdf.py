@@ -156,6 +156,7 @@ class jsPdf:
   def multi_cell(self,width,height,text,border = 0, ln = 1, align='L'):
     if not text: return
     # splits the text into parts
+    current_x = self.current_x
     words_list = text.split(' ')
 
     current_row_text = ''
@@ -167,14 +168,17 @@ class jsPdf:
           current_row_text = current_row_text[:-1]
           if self.doc.getTextDimensions(current_row_text).get('w') <= width: # if word fits -> make cell and set remaining word - if it is shorter than cell -> continue, if it is larger -> redo cycle
             self.cell(width,height,current_row_text,border=border,ln=1)
+            self.current_x = current_x
             word = word[len(current_row_text):]
             current_row_text = word
         current_row_text += ' '
         continue
 
       # if text plus word is larger than cell -> append cell and start new row
+      print('+'+word+'+',self.doc.getTextDimensions(current_row_text + word).get('w'),width)
       if self.doc.getTextDimensions(current_row_text + word).get('w') >= width:
         self.cell(width,height,current_row_text,border=border,ln=1)
+        self.current_x = current_x
         current_row_text = ''
         
       current_row_text += word + ' '
@@ -230,7 +234,7 @@ class jsPdf:
       if image_ar < pdf_ar:
         #adjust height
         w = h * image_ar
-      else:
+      elif image_ar > pdf_ar:
         h = w * image_ar
         
     base_64_image = utils.media_obj_to_base64(image_data)
