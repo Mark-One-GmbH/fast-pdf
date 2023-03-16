@@ -248,7 +248,8 @@ class jsPdf:
     return self.page_number
 
   def set_y(self,value):
-    if value < 0:
+    if value <= 0:
+      return
       self.current_y = self.page_height-value
     else:
       self.current_y = value
