@@ -36,9 +36,14 @@ def media_obj_to_pil(blob_media):
   except Exception as e:
     print('WARNING: image could not be converted',e)
         
-def get_image_dimenstions(blob_media):
+def get_image_dimenstions(blob_media)->tuple:
+  '''returns a tuple -> (width,height) '''
   import anvil
   if anvil.is_server_side():
-    return 1,1 #todo
+    from PIL import Image
+    import io
+    bytes_io = io.BytesIO(blob_media.get_bytes())
+    pil_image = Image.open(bytes_io)
+    return pil_image.size
   else:
     return anvil.image.get_dimensions(blob_media)
