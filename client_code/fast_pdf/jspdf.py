@@ -237,9 +237,15 @@ class jsPdf:
       pdf_ar = w/h
       if image_ar < pdf_ar:
         #adjust height
-        w = h / image_ar
+        if image_ar >= 1:
+          w = h / image_ar
+        else:
+          w = h * image_ar
       elif image_ar > pdf_ar:
-        h = w / image_ar
+        if image_ar >= 1:
+          h = w / image_ar
+        else:
+          h = w * image_ar
         
     base_64_image = utils.media_obj_to_base64(image_data)
     self.doc.addImage(base_64_image,'JPEG',x,y,w,h,alias,compression,rotation)
