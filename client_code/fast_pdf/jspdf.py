@@ -177,7 +177,6 @@ class jsPdf:
           continue
   
         # if text plus word is larger than cell -> append cell and start new row
-        print('+'+word+'+',self.doc.getTextDimensions(current_row_text + word).get('w'),width)
         if self.doc.getTextDimensions(current_row_text + word).get('w') >= width:
           self.cell(width,height,current_row_text,border=border,ln=1)
           self.current_x = current_x
@@ -249,4 +248,7 @@ class jsPdf:
     return self.page_number
 
   def set_y(self,value):
-    pass # does nothing - js implements footer hight
+    if value < 0:
+      self.current_y = self.page_height-value
+    else:
+      self.current_y = value
