@@ -244,6 +244,7 @@ class jsPdf:
       d_width,d_height = utils.get_image_dimenstions(image_data)
       image_ar = d_width/d_height
       pdf_ar = w/h
+      print(d_width,d_height,image_ar,pdf_ar)
       if image_ar < pdf_ar:
         #adjust height
         if image_ar >= 1:
