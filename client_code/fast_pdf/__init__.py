@@ -67,7 +67,7 @@ class Document:
     self.doc.header_callback = self.header_function
     self.doc.footer_callback = self.footer_function
     self.doc.footer_height = self.footer_height
-    self.doc.set_margin(self.margin_bottom)
+    self.doc.set_margin(self.margin_bottom+self.footer_height)
     self.doc.set_left_margin(self.margin_left)
     self.doc.set_right_margin(self.margin_right)
     self.doc.set_top_margin(self.margin_top)
