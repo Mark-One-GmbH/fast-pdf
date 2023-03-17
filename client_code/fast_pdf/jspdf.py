@@ -46,6 +46,7 @@ class jsPdf:
   def header(self): 
     # get current font attributes
     font_tuple = self.current_font
+    text_color = self.current_text_color
     
     self._reset_x()
     self.current_y = self.margin_top
@@ -55,12 +56,15 @@ class jsPdf:
     if font_tuple:
       font_name,style,size = font_tuple
       self.set_font(font_name,style,size)
+    if text_color:
+      self.set_text_color(*text_color)
     
 
 
   def footer(self):
     # get current font attributes
     font_tuple = self.current_font
+    text_color = self.current_text_color
     
     self._reset_x()
     self.current_y = self.page_height - self.margin_bottom - self.footer_height
@@ -72,6 +76,8 @@ class jsPdf:
     if font_tuple:
       font_name,style,size = font_tuple
       self.set_font(font_name,style,size)
+    if text_color:
+      self.set_text_color(*text_color)
 
     
   def add_page(self,orientation='P'):
@@ -82,7 +88,7 @@ class jsPdf:
     if self.first_page:
       self.first_page = False
     else:
-      self.doc.addPage('a4',self.get_orientation())
+      self.doc.addPage([self.page_width,self.page_height],self.get_orientation())
       
     self.footer()
     self._reset_y()
@@ -201,6 +207,8 @@ class jsPdf:
       self.doc.setTextColor(color_1,color_2,color_3)
     else:
       self.doc.setTextColor(color_1)
+
+    self.current_text_color = (color_1,color_2,color_3)
 
   def set_draw_color(self,color_1,color_2=None,color_3=None):
     if color_2 != None and color_3 != None:
