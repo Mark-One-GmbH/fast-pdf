@@ -244,18 +244,11 @@ class jsPdf:
       d_width,d_height = utils.get_image_dimenstions(image_data)
       image_ar = d_width/d_height
       pdf_ar = w/h
-      print(d_width,d_height,image_ar,pdf_ar)
       if image_ar < pdf_ar:
         #adjust height
-        if image_ar >= 1:
-          w = h / image_ar
-        else:
-          w = h * image_ar
+        w = h * image_ar
       elif image_ar > pdf_ar:
-        if image_ar >= 1:
-          h = w / image_ar
-        else:
-          h = w * image_ar
+        h = w / image_ar
         
     base_64_image = utils.media_obj_to_base64(image_data)
     self.doc.addImage(base_64_image,'JPEG',x,y,w,h,alias,compression,rotation)

@@ -26,15 +26,9 @@ class CustomFPDF(FPDF):
       pdf_ar = w/h
       if image_ar < pdf_ar:
         #adjust height
-        if image_ar >= 1:
-          w = h / image_ar
-        else:
-          w = h * image_ar
+        w = h * image_ar
       else:
-        if image_ar >= 1:
-          h = w / image_ar
-        else:
-          h = w * image_ar
+        h = w / image_ar
         
     image_data = utils.media_obj_to_pil(image_data)
     self.image(image_data,x,y,w,h)
