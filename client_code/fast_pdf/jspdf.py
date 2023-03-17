@@ -37,6 +37,7 @@ class jsPdf:
     self.auto_page_break = True
     self.first_page = True
     self.current_font = None
+    self.current_text_color = None
     self.page_number = 0
 
   def get_orientation(self):
