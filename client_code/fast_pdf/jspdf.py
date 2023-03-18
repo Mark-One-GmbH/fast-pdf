@@ -58,7 +58,6 @@ class jsPdf:
       self.set_font(font_name,style,size)
     if text_color:
       self.set_text_color(*text_color)
-    
 
 
   def footer(self):
