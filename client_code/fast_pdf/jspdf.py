@@ -117,6 +117,10 @@ class jsPdf:
   def _reset_y(self):
     self.current_y = self.margin_top
 
+  def _get_font(self):
+    return self.current_font
+    
+
   def vertical_text(self,width,height,text,border = 0, ln = 1, align='L', fill=False):
     #check if new page must be added
     self._check_new_page(height)
@@ -126,7 +130,7 @@ class jsPdf:
       add_height = self.doc.getTextDimensions(text).get('w') + 1
       self.doc.rect(self.current_x, self.current_y - add_height, height, rect_height, 'F')
       
-    font_name,style,font_size = self.current_font
+    font_name,style,font_size = self._get_font()
     add_width = (height/2 + font_size * 0.106)
       
     self.doc.text(text,self.current_x + add_width, self.current_y, {'angle':90})
@@ -143,7 +147,7 @@ class jsPdf:
     if fill:
       self.doc.rect(self.current_x, self.current_y, width, height, 'F')
 
-    font_name,style,font_size = self.current_font
+    font_name,style,font_size = self._get_font()
     add_height = (height/2 + font_size * 0.106) if isinstance(height,(int,float)) and isinstance(font_size,(int,float)) else 4
 
     if align == 'C':
