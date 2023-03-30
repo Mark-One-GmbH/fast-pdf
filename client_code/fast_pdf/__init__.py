@@ -187,9 +187,9 @@ class Document:
     '''prints the pdf to the browser window'''
     utils.print_pdf(self.to_blob(),new_tab=new_tab)
 
-  def download(self):
+  def download(self,file_name='file'):
     '''downloads the pdf file'''
-    utils.download_pdf(self.to_blob())
+    utils.download_pdf(self.to_blob(file_name))
 
   def preview(self):
     '''Opens an alert to preview'''
