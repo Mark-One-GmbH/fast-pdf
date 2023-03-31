@@ -15,8 +15,14 @@ def print_pdf(blob_media,new_tab=False):
   else:
     import anvil.js
     from anvil.js.window import printJS
-    printJS({'printable':media_obj_to_base64(blob_media), 'type': 'pdf', 'base64': True})  
+    printJS({'printable':media_obj_to_base64(blob_media), 'type': 'pdf', 'base64': True,'onPrintDialogClose':onClose})  
 
+def onClose():
+  try:
+    from anvil.js.window import document
+    #document.getElementById("printJS").remove()
+  except Exception as e:
+    print(e)
 
 def download_pdf(blob_media):
   import anvil.media
