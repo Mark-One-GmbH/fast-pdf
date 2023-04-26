@@ -20,7 +20,7 @@ def print_pdf(blob_media,new_tab=False):
 def onClose():
   try:
     from anvil.js.window import document
-    #document.getElementById("printJS").remove()
+    document.getElementById("printJS").remove()
   except Exception as e:
     print(e)
 
