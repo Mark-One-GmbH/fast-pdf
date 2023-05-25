@@ -128,6 +128,12 @@ class Document:
 
   def set_y(self,value):
     self.doc.set_y(value)
+    
+  def set_x(self,value):
+    self.doc.set_x(value)
+
+  def set_xy(self,value_x,value_y):
+    self.doc.set_xy(value_x,value_y)
 
   def page_no(self):
     return self.doc.page_no()

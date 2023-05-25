@@ -265,3 +265,10 @@ class jsPdf:
       self.current_y = self.page_height-value
     else:
       self.current_y = value
+
+  def set_x(self,value):
+    self.current_x = value
+
+  def set_xy(self,value_x,value_y):
+    self.set_x(value_x)
+    self.set_y(value_y)
