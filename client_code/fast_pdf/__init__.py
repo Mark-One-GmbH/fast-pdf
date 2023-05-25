@@ -67,6 +67,8 @@ class Document:
     self.doc.header_callback = self.header_function
     self.doc.footer_callback = self.footer_function
     self.doc.footer_height = self.footer_height
+    self.doc.skip_header = False
+    self.doc.skip_footer = False
     self.doc.set_margin(self.margin_bottom+self.footer_height)
     self.doc.set_left_margin(self.margin_left)
     self.doc.set_right_margin(self.margin_right)
@@ -78,11 +80,21 @@ class Document:
   #Public Methods
   ###########################
   
-  def add_page(self,orientation='P',include_header=True,include_footer=True):
+  def add_page(self,orientation='P',skip_header=False,skip_footer=False):
     if self.renderer_type == 'jspdf':
-      self.doc.add_page(orientation,include_header,include_footer)
+      self.doc.add_page(orientation,skip_header,skip_footer)
     else:
+      self.set_skip_header(skip_header)
       self.doc.add_page(orientation)
+      self.set_skip_footer(skip_footer)
+
+  def set_skip_header(self,value):
+    if self.renderer_type == 'fpdf':
+      self.doc.skip_header = value
+      
+  def set_skip_footer(self,value):
+    if self.renderer_type == 'fpdf':
+      self.doc.skip_footer = value
 
   def will_page_break(self,height):
     return self.doc.will_page_break(height)
@@ -115,6 +127,7 @@ class Document:
     if self.renderer_type == 'jspdf':
       self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill,check_new_page=check_new_page)
     else:
+      self.doc.set_auto_page_break(check_new_page)
       self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill)
       
   def vertical_text(self,width,height,text,border=0,ln=0,align='L',fill=False):

@@ -79,7 +79,7 @@ class jsPdf:
       self.set_text_color(*text_color)
 
     
-  def add_page(self,orientation='P',include_header=True,include_footer=True):
+  def add_page(self,orientation='P',skip_header=False,skip_footer=False):
     self.page_number += 1
 
     self.orientation = orientation
@@ -89,9 +89,9 @@ class jsPdf:
     else:
       self.doc.addPage([self.page_width,self.page_height],self.get_orientation())
       
-    if include_footer: self.footer()
+    if not skip_footer: self.footer()
     self._reset_y()
-    if include_header: self.header()
+    if not skip_header: self.header()
     self._reset_x()
     
   def will_page_break(self,height):
