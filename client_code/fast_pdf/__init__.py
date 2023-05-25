@@ -78,8 +78,11 @@ class Document:
   #Public Methods
   ###########################
   
-  def add_page(self,orientation='P'):
-    self.doc.add_page(orientation)
+  def add_page(self,orientation='P',include_footer=True):
+    if self.renderer_type == 'jspdf':
+      self.doc.add_page(orientation,include_footer)
+    else:
+      self.doc.add_page(orientation)
 
   def will_page_break(self,height):
     return self.doc.will_page_break(height)
