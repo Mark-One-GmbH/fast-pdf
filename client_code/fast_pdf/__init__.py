@@ -111,8 +111,11 @@ class Document:
   def set_font(self,font_name,size=19,style=''):
     self.doc.set_font(font_name,style,size)
       
-  def cell(self,width,height,text,border=0,ln=0,align='L',fill=False):
-    self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill)
+  def cell(self,width,height,text,border=0,ln=0,align='L',fill=False, check_new_page=True):
+    if self.renderer_type == 'jspdf':
+      self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill,check_new_page=check_new_page)
+    else:
+      self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill)
       
   def vertical_text(self,width,height,text,border=0,ln=0,align='L',fill=False):
     self.doc.vertical_text(width,height,text,border=border,ln=ln,align=align,fill=fill)

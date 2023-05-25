@@ -139,9 +139,9 @@ class jsPdf:
       self.current_y += height
       self._reset_x()
     
-  def cell(self,width,height,text,border = 0, ln = 1, align='L', fill=False):
+  def cell(self,width,height,text,border = 0, ln = 1, align='L', fill=False, check_new_page=True):
     #check if new page must be added
-    self._check_new_page(height)
+    if check_new_page: self._check_new_page(height)
 
     if fill:
       self.doc.rect(self.current_x, self.current_y, width, height, 'F')
