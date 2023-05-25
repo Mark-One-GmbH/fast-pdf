@@ -78,9 +78,9 @@ class Document:
   #Public Methods
   ###########################
   
-  def add_page(self,orientation='P',include_footer=True):
+  def add_page(self,orientation='P',include_header=True,include_footer=True):
     if self.renderer_type == 'jspdf':
-      self.doc.add_page(orientation,include_footer)
+      self.doc.add_page(orientation,include_header,include_footer)
     else:
       self.doc.add_page(orientation)
 
