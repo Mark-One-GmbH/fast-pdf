@@ -216,10 +216,10 @@ class Document:
     '''downloads the pdf file'''
     utils.download_pdf(self.to_blob(file_name))
 
-  def preview(self):
+  def preview(self,role=None,buttons=None,dismissible=True,large=True):
     '''Opens an alert to preview'''
     pdf_form = utils.pdf_to_component(self.to_blob())
-    anvil.alert(pdf_form,large=True)
+    anvil.alert(pdf_form,large=large,role=role,buttons=buttons,dismissible=dismissible)
 
   def get_form(self):
     '''Returns a nestable component wich allows the pdf to be embedded into forms'''
