@@ -86,6 +86,7 @@ class Document:
       self.set_skip_footer(skip_footer)
 
   def set_skip_header(self,value):
+    
     if self.renderer_type == 'fpdf':
       self.doc.skip_header = value
       
