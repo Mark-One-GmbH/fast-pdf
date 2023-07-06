@@ -125,7 +125,9 @@ class Document:
     if self.renderer_type == 'jspdf':
       self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill,check_new_page=check_new_page)
     else:
-      self.doc.set_auto_page_break(check_new_page)
+      #Attention margin must be set since it is reset to 0 otherwise
+      #https://pyfpdf.github.io/fpdf2/fpdf/fpdf.html#fpdf.fpdf.FPDF.set_auto_page_break
+      self.doc.set_auto_page_break(check_new_page,margin=self.margin_bottom+self.footer_height) #margin 20 is the default value
       self.doc.cell(width,height,text,border=border,ln=ln,align=align,fill=fill)
       
   def vertical_text(self,width,height,text,border=0,ln=0,align='L',fill=False):
