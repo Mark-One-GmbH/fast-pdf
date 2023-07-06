@@ -32,13 +32,10 @@ class Document:
     self.footer_function = footer_function
 
     self.orientation = orientation
-    
     self.server_side = anvil.is_server_side()
     
     #Set Base Renderer
     self.renderer_type = self._set_renderer(anvil.is_server_side())
-
-    #State Variables
     
     
   def _set_renderer(self,is_server_side):
