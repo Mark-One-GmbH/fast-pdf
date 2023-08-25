@@ -272,3 +272,6 @@ class jsPdf:
   def set_xy(self,value_x,value_y):
     self.set_x(value_x)
     self.set_y(value_y)
+
+  def get_string_width(self, text):
+    return self.getTextDimensions(text)
