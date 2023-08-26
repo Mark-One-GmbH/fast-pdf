@@ -153,7 +153,7 @@ class jsPdf:
       print(text)
       print(self.current_x + width/2)
       print(self.current_y+add_height) #,{'align':'center'}
-      self.doc.text(text,self.current_x + width/2, self.current_y+add_height)
+      self.doc.text(text,self.current_x + width/2, self.current_y+add_height,{'align':'center'})
     elif align == 'R':
       self.doc.text(text + ' ',self.current_x + width, self.current_y+add_height,{'align':'right'})
     else:
