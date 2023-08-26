@@ -150,7 +150,10 @@ class jsPdf:
     add_height = (height/2 + font_size * 0.106) if isinstance(height,(int,float)) and isinstance(font_size,(int,float)) else 4
 
     if align == 'C':
-      self.doc.text(text,self.current_x + width/2, self.current_y+add_height,{'align':'center'})
+      print(text)
+      print(self.current_x + width/2)
+      print(self.current_y+add_height) #,{'align':'center'}
+      self.doc.text(text,self.current_x + width/2, self.current_y+add_height)
     elif align == 'R':
       self.doc.text(text + ' ',self.current_x + width, self.current_y+add_height,{'align':'right'})
     else:
@@ -163,8 +166,12 @@ class jsPdf:
 
       
 
-  def multi_cell(self,width,height,text,border = 0, ln = 1, align='L'):
+  def multi_cell(self,width,height,text,border = 0, ln = 1, align='L', fill=False, markdown=False):
     if not text: return
+      
+    if fill:
+      self.doc.rect(self.current_x, self.current_y, width, height, 'F')
+      
     # splits the text into parts
     current_x = self.current_x
     lines_list = text.splitlines()
@@ -274,4 +281,4 @@ class jsPdf:
     self.set_y(value_y)
 
   def get_string_width(self, text):
-    return self.getTextDimensions(text)
+    return self.doc.getStringUnitWidth(text)

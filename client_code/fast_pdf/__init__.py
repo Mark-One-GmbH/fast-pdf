@@ -133,8 +133,8 @@ class Document:
   def vertical_text(self,width,height,text,border=0,ln=0,align='L',fill=False):
     self.doc.vertical_text(width,height,text,border=border,ln=ln,align=align,fill=fill)
     
-  def multi_cell(self,width,height,text,border=0,ln=0,align='L'):
-    self.doc.multi_cell(width,height,text,border=border,ln=ln,align=align)
+  def multi_cell(self,width,height,text,border=0,ln=0,align='L', fill=False, markdown=False):
+    self.doc.multi_cell(width,height,text,border=border,ln=ln,align=align,fill=fill,markdown=markdown)
 
   def spacer(self,height):
     self.cell(1,height,'',ln=1)
@@ -191,7 +191,9 @@ class Document:
     '''Takes an image in form of a blob and prints it on the pdf'''          
     self.doc.add_image(image_data,x=x,y=y,w=w,h=h,keep_aspect_ratio=keep_aspect_ratio)
     
-
+  def get_string_width(self,text):
+    return self.doc.get_string_width(text)
+    
   def set_auto_fontsize(self,header_string,width,start_size=24,font='poppins-regular',min_font_size=None):
     _font_size = start_size
     self.set_font(font, '', _font_size)
