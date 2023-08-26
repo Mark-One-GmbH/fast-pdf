@@ -199,6 +199,7 @@ class Document:
     self.set_font(font, '', _font_size)
     header_string_new = header_string.replace('Ö','o').replace('Ü','o').replace('Ä','o').replace('ö','o').replace('ä','o').replace('ü','o').replace('ß','o')
     string_width = self.get_string_width(header_string_new)
+    print('sting width',string_width, _font_size, width)
     while self.get_string_width(header_string_new) > width-4:
       _font_size -= 1
       self.set_font(font, '', _font_size)
