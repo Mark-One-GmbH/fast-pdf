@@ -38,3 +38,6 @@ class CustomFPDF(FPDF):
     self.rotate(90)
     self.cell(width, height, text, border =border, ln=ln, align=align, fill=fill)
     self.rotate(0)
+
+  def get_string_width(self, text, font_size=0):
+    return self.doc.get_string_width(text)

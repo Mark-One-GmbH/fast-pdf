@@ -277,7 +277,7 @@ class jsPdf:
     self.set_x(value_x)
     self.set_y(value_y)
 
-  def get_string_width(self, text):
-    print(text)
-    print(self.doc.getTextDimensions(text))
-    return self.doc.getStringUnitWidth(text)
+  def get_string_width(self, text, font_size):
+    print(self.doc.getStringUnitWidth(text), font_size)
+    print('size', self.doc.getStringUnitWidth(text) * font_size * (72/25.6))
+    return self.doc.getStringUnitWidth(text) * font_size * (72/25.6)

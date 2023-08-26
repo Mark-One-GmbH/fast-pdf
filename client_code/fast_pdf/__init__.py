@@ -191,16 +191,14 @@ class Document:
     '''Takes an image in form of a blob and prints it on the pdf'''          
     self.doc.add_image(image_data,x=x,y=y,w=w,h=h,keep_aspect_ratio=keep_aspect_ratio)
     
-  def get_string_width(self,text):
-    return self.doc.get_string_width(text)
+  def get_string_width(self,text, font_size=0):
+    return self.doc.get_string_width(text, font_size=font_size)
     
   def set_auto_fontsize(self,header_string,width,start_size=24,font='poppins-regular',min_font_size=None):
     _font_size = start_size
     self.set_font(font, '', _font_size)
     header_string_new = header_string.replace('Ö','o').replace('Ü','o').replace('Ä','o').replace('ö','o').replace('ä','o').replace('ü','o').replace('ß','o')
-    string_width = self.get_string_width(header_string_new)
-    print('sting width',string_width, _font_size, width)
-    while self.get_string_width(header_string_new) > width-4:
+    while self.get_string_width(header_string_new, font_size=_font_size) > width-4:
       _font_size -= 1
       self.set_font(font, '', _font_size)
   
