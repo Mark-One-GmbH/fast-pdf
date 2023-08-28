@@ -183,8 +183,7 @@ class jsPdf:
           while self.doc.getTextDimensions(current_row_text).get('w') > width: # loop over and cut last character of word
             current_row_text = current_row_text[:-1]
             if self.doc.getTextDimensions(current_row_text).get('w') <= width: # if word fits -> make cell and set remaining word - if it is shorter than cell -> continue, if it is larger -> redo cycle
-              #self.cell(width,height,current_row_text,border=border,ln=1)
-              self.doc.html(f'<strong>{current_row_text}</strong>')
+              self.cell(width,height,current_row_text,border=border,ln=1)
               self.current_x = current_x
               word = word[len(current_row_text):]
               current_row_text = word
@@ -193,8 +192,7 @@ class jsPdf:
   
         # if text plus word is larger than cell -> append cell and start new row
         if self.doc.getTextDimensions(current_row_text + word).get('w') >= width:
-          self.doc.html(f'<strong>{current_row_text}</strong>')
-          #self.cell(width,height,current_row_text,border=border,ln=1)
+          self.cell(width,height,current_row_text,border=border,ln=1)
           self.current_x = current_x
           current_row_text = ''
           
@@ -202,8 +200,7 @@ class jsPdf:
   
       # in the end if there is still a text to append
       if current_row_text:
-        self.doc.html(f'<strong>{current_row_text}</strong>')
-        #self.cell(width,height,current_row_text,border=border,ln=1)
+        self.cell(width,height,current_row_text,border=border,ln=1)
         self.current_x = current_x
 
     self._reset_x()
@@ -242,6 +239,7 @@ class jsPdf:
     return self.current_y
 
   def rotate(self,angle):
+    #print(self.doc.getFontSize())
     self.doc.rotate(angle)
     
   def doc(self,width, height, text):

@@ -198,14 +198,10 @@ class Document:
     _font_size = start_size
     self.set_font(font, _font_size, '')
     header_string_new = header_string.replace('Ö','o').replace('Ü','o').replace('Ä','o').replace('ö','o').replace('ä','o').replace('ü','o').replace('ß','o')
-    print('width', width)
-    print('header string',header_string)
-    print('width calc init',self.get_string_width(header_string_new, font_size=_font_size))
     while self.get_string_width(header_string_new, font_size=_font_size) > width-4:
-      print('width calc',self.get_string_width(header_string_new, font_size=_font_size))
       _font_size -= 1
       self.set_font(font, _font_size, '')
-    print('final font size',_font_size)
+      
     if isinstance(min_font_size,(float,int)) and _font_size >= min_font_size: 
       self.set_font(font, _font_size, '')
       return min_font_size
