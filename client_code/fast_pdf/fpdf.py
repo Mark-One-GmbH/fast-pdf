@@ -40,4 +40,4 @@ class CustomFPDF(FPDF):
     self.rotate(0)
 
   def get_string_width(self, text, font_size=0):
-    return self.doc.get_string_width(text)
+    return self.get_string_width(text)
