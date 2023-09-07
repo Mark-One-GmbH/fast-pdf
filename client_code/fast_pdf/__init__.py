@@ -192,7 +192,7 @@ class Document:
     self.doc.add_image(image_data,x=x,y=y,w=w,h=h,keep_aspect_ratio=keep_aspect_ratio)
     
   def get_string_width(self,text, font_size=0):
-    return self.doc.get_string_width(text, font_size=font_size)
+    return self.doc.get_width_of_string(text, font_size=font_size)
     
   def set_auto_fontsize(self,header_string,width,start_size=24,font='poppins-regular',min_font_size=None):
     _font_size = start_size
